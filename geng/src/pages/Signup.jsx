@@ -84,7 +84,9 @@ const Signup = () => {
               />
             </div>
           </form>
+          <a href="verify">
           <button onClick={SignupHanlder}>Sign up</button>
+          </a>
         </div>
       </div>
     </div>
