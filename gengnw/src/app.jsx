@@ -12,6 +12,7 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Verify from "./pages/Verify";
 import Dashboard from "./pages/Dashboard";
+import Privacypolicy from "./pages/Privacypolicy";
 export function App() {
   return (
     
@@ -28,7 +29,7 @@ export function App() {
         <Route path='/dashboard' element={<Privateroutes allowedRoles={["user", "admin", "pharmacist", "signedout"]}><Dashboard /></Privateroutes>}/>
         <Route path='/requestsample' element={<Requestsample/>}/>
         <Route path='/bookexam' element={<Bookexam/>}/>
-        
+        <Route path='/privacypolicy' element={<Privacypolicy/>}/>
         <Route path="/unauthorized" element={<h2>Unauthorized</h2>} />
       </Routes>
       <Footer />

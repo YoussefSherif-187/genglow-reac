@@ -1,8 +1,12 @@
 import React from 'react'
+import "../pagesstyles/requestsample.css"
 
 const Requestsample = () => {
   return (
-    <div>Requestsample</div>
+    <div>
+    
+
+    </div>
   )
 }
 

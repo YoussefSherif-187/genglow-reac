@@ -1,4 +1,5 @@
 import React from 'react'
+import "../pagesstyles/bookexam.css"
 
 const Bookexam = () => {
   return (

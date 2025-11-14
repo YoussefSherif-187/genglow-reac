@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap');
+.hometop {
+    background-image: url("../assets/homepic.png"); 
+      
+     width: 100%;
+  height: 1000px;
+  background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right center;
+
+}
+.hometop h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+padding-top: 300px;
+padding-left: 150px;
+font-size: 60px;
+ font-family: var(--font-headline);
+ font-weight: 900;          
+  letter-spacing: -0.5px;    
+  line-height: 1.05;
+  text-transform: none;
+  color: #0A1244;
+}
+
+.hometop .home-cta {
+    padding-left: 500px;  
+    padding-top: 30px;     
+    display: flex;
+    align-items: center;
+}
+
+.hometop .btn-quiz {
+    background: #28a745;               
+    color: #ffffff;
+    border: none;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 999px;              
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(40, 167, 69, 0.18);
+    transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.hometop .btn-quiz:hover {
+    filter: brightness(0.86);         
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(31, 122, 51, 0.22);
+}
+
+.hometop .btn-quiz:focus {
+    outline: 3px solid rgba(40, 167, 69, 0.22);
+    outline-offset: 3px;
+    border-radius: 999px;
+}
+
+.homemiddle h1{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+
+}
+.homemiddle p{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+
+}
+.homemiddle .home-cta {
+    flex-basis: 100%;
+  display: flex;
+  justify-content: center; 
+  padding-top: 18px;      
+  box-sizing: border-box;
+}
+
+
+.homemiddle .btn-quiz {
+    background: #28a745;            
+    color: #ffffff;
+    border: none;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 999px;            
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(40, 167, 69, 0.18);
+    transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+.homemiddle .btn-quiz:hover {
+    filter: brightness(0.86);          
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(31, 122, 51, 0.22);
+}
+
+.homemiddle {
+    background-color: rgba(0, 0, 0, 0.10); /* black at 10% opacity */
+  border-top: 3px solid #000;            /* 3px top border */
+  border-bottom: 3px solid #000;         /* 3px bottom border */
+  border-left: none;
+  border-right: none;
+  padding: 1rem;                         /* adjust spacing as needed */
+  box-sizing: border-box;
+  width: 100%;                           
+}
