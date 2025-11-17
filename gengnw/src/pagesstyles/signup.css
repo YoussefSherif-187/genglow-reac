@@ -4,19 +4,23 @@
   background-size: cover;
   background-position: right;
   overflow: hidden;
-}
-.wrapper {
-  box-sizing: border-box;
-  background-color: white;
-  height: 100vh;
-  width: max(40%, 600px);
-  padding: 10px;
-  border-radius: 0 20px 20px 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  justify-content: center; /* Horizontal centering */
+  align-items: center;    /* Vertical centering */
+
 }
+.wrapper { 
+  box-sizing: border-box;
+   background-color: white;
+    height: 700px;
+    width: 500px;
+     /* don't force full viewport height — lets it be centered / width: min(40%, 600px); / limit width to 600px or 40% of viewport (whichever is smaller) */ 
+     border-radius: 20px 20px 20px 20px; 
+     display: flex; 
+     flex-direction: column; 
+     align-items: center; 
+     justify-content: center; 
+    }
 .signbody h1 {
   font-size: 3rem;
   font-weight: 900;

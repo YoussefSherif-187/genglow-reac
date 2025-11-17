@@ -115,11 +115,10 @@
   
   .footerNav{
         border-top-style: solid;
-      margin: 10px 0;
   }
   
   .footerNav ul{
-  padding-top: 10px;
+  padding-top: 25px;
       display: flex;
       justify-content: center;
       list-style-type: none;

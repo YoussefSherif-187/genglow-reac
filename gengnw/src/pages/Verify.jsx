@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import keypic from '../assets/key.png'
 import "../pagesstyles/signup.css"
-import axios from 'axios'
 
-const verify = () => {
- /* const [email, setEmail] = useState("");
+const Verify = () => {
+  const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
-
+  
   const VerifyHanlder = async () => {
     await axios
       .post("https://genglow-backend.vercel.app/api/auth/verify-email", {
@@ -14,14 +14,13 @@ const verify = () => {
         code: code,
       })
       .then(response => {
-        console.log(response);
+        alert("Email Verified");
       })
       .catch(error => {
         console.log(error);
+        alert("error. You may have entered a field incorrectly.");
       });
   };
-*/
-
   return (
   
   <div>
@@ -35,17 +34,17 @@ const verify = () => {
   <label for="email-input">
     <span>@</span>
   </label>
-  <input type="email" name="email" /*onChange={e => {setEmail(e.target.value);}} */ id="email-input" placeholder="Email"/>
+  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} name="email" id="email-input" placeholder="Email"/>
 </div>
 <div>
   <label for="code-input">
-      <img src={keypic} height="24" viewBox="0 -960 960 960" width="24"/>
+      <img src={keypic} alt="" height="24" viewBox="0 -960 960 960" width="24"/>
   </label>
-  <input type="code" name="code" /*onChange={e => {setCode(e.target.value);}} */ id="code-input" placeholder="Code"/>
+  <input type="code" value={code} onChange={(e) => setCode(e.target.value)} name="code"  id="code-input" placeholder="Code"/>
 </div>
 </form>
-
- <button /*onClick={VerifyHanlder} */ >Verify</button>
+<a href="verify">Resend verification code</a>
+  <button onClick={VerifyHanlder}>Verify</button>
 
 </div>
 
@@ -54,4 +53,4 @@ const verify = () => {
 </div> )
 }
 
-export default verify
+export default Verify

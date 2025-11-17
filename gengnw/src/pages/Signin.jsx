@@ -18,12 +18,15 @@ const Signin = () => {
       </div>
       <div>
         <label for="password-input">
-            <img src={keypic} height="24" viewBox="0 -960 960 960" width="24"/>
+            <img src={keypic} alt="" height="24" viewBox="0 -960 960 960" width="24"/>
         </label>
         <input type="password" name="password" id="password-input" placeholder="Password"/>
       </div>
-      <button type="submit">sign in </button>
+      
     </form>
+    <a href="signup">Dont't have an account?</a>
+    <a href="signup">Forgotten your password?</a>
+    <button type="submit">sign in </button>
   </div>
 
   </div>

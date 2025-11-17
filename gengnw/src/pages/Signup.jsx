@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, {  useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import keypic from "../assets/key.png";
 import user2 from "../assets/user2.png";
 import "../pagesstyles/signup.css";
 import axios from "axios";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -17,10 +19,11 @@ const Signup = () => {
         password: password,
       })
       .then(response => {
-        console.log(response);
+        navigate('/verify');
       })
       .catch(error => {
         console.log(error);
+        alert("error. You may have entered a field incorrectly, or have already sent a verification mail, in that case click on Resend verification code");
       });
   };
 
@@ -35,6 +38,7 @@ const Signup = () => {
               <label for="name-input">
                 <img
                   src={user2}
+                  alt=""
                   height="24"
                   viewBox="0 -960 960 960"
                   width="24"
@@ -66,12 +70,7 @@ const Signup = () => {
             </div>
             <div>
               <label for="password-input">
-                <img
-                  src={keypic}
-                  height="24"
-                  viewBox="0 -960 960 960"
-                  width="24"
-                />
+                <img src={keypic} alt="" height="24" viewBox="0 -960 960 960" width="24"/>
               </label>
               <input
                 type="password"
@@ -84,9 +83,11 @@ const Signup = () => {
               />
             </div>
           </form>
-          <a href="verify">
+          <a href="signin">Already have an account?</a>
+          <a href="verify">Want to Verify your account?</a>
+          <a href="verify">Resend verification code</a>
           <button onClick={SignupHanlder}>Sign up</button>
-          </a>
+         
         </div>
       </div>
     </div>
