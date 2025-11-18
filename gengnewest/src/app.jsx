@@ -1,6 +1,9 @@
 import react from "react";
 import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./auth/AuthContext";
 import Privateroutes from "./Privateroutes";
+
+
 import Navbar from "./comp/navbar";
 import Footer from "./comp/Footer";
 import Home from "./pages/Home";
@@ -14,6 +17,8 @@ import Signin from "./pages/Signin";
 import Verify from "./pages/Verify";
 import Dashboard from "./pages/Dashboard";
 import Privacypolicy from "./pages/Privacypolicy";
+
+
 export function App() {
   return (
     
@@ -27,7 +32,7 @@ export function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/verify" element={<Verify />} />
-        <Route path='/dashboard' element={<Privateroutes allowedRoles={["user", "admin", "pharmacist", "signedout"]}><Dashboard /></Privateroutes>}/>
+        <Route path='/dashboard' element={<Privateroutes allowedRoles={["user"]}><Dashboard /></Privateroutes>}/>
         <Route path='/requestsample' element={<Requestsample/>}/>
         <Route path='/bookexam' element={<Bookexam/>}/>
         <Route path='/genquiz' element={<Genquiz/>}/>

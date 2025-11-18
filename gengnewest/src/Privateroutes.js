@@ -7,7 +7,7 @@ const Privateroutes = ({ children, allowedRoles }) => {
 
   if (authState.loading) return <div>Loading...</div>;
 
-  if (authState.role === "signedout") return <Navigate to="/login" />;
+  if (authState.role === "signedout") return <Navigate to="/signin" />;
 
   if (!allowedRoles.includes(authState.role))
     return <Navigate to="/unauthorized" />;

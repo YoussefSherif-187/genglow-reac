@@ -1,45 +1,55 @@
-import React, { createContext, useState, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 import api from "../auth/axios";
 
-    export const AuthContext = createContext();
+export const AuthContext = createContext();
 
-    export const AuthProvider = ({ children }) => {
-    const [authState, setAuthState] = useState({
-        user: null,
-        role: "signedout",
-        loading: true,
-    });
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);  
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const checkAuth = async () => {
-        try {
-            const { data } = await api.get("/auth/me");
-            setAuthState({
-            user: data.user,
-            role: data.user.role,
-            loading: false,
-            });
-        } catch (err) {
-            setAuthState({ user: null, role: "signedout", loading: false });
-        }
-        };
-        checkAuth();
-    }, []);
 
-    const signin = async (email, password) => {
-        const { data } = await api.post("/auth/signin", { email, password });
-        localStorage.setItem("token", data.token);
-        setAuthState({ user: data.user, role: data.user.role, loading: false });
-    };
 
-    const signout = async () => {
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
+
+
+    api.get("/auth/me")
+      .then(res => {
+        setUser(res.data); 
+      })
+
+      .catch(() => {
         localStorage.removeItem("token");
-        setAuthState({ user: null, role: "signedout", loading: false });
-    };
+      })
+      
+      .finally(() => setLoading(false));
+  }, []);
 
-    return (
-        <AuthContext.Provider value={{ authState, signin, signout }}>
-        {children}
-        </AuthContext.Provider>
-    );
-    };
+
+
+  const login = async (email, password) => {
+    const res = await api.post("/auth/login", { email, password });
+    localStorage.setItem("token", res.data.token);
+    setUser(res.data.user);
+  };
+
+
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+  };
+
+
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
