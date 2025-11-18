@@ -1,0 +1,386 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap');
+.hometop {
+    background-image: url("../assets/homepic.png"); 
+      
+     width: 100%;
+  height: 1000px;
+  background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right center;
+
+}
+.hometop h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+padding-top: 300px;
+padding-left: 150px;
+font-size: 60px;
+ font-family: var(--font-headline);
+ font-weight: 900;          
+  letter-spacing: -0.5px;    
+  line-height: 1.05;
+  text-transform: none;
+  color: #0A1244;
+}
+
+.hometop .home-cta {
+    padding-left: 500px;  
+    padding-top: 30px;     
+    display: flex;
+    align-items: center;
+}
+
+.hometop .btn-quiz {
+    background: #28a745;               
+    color: #ffffff;
+    border: none;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 999px;              
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(40, 167, 69, 0.18);
+    transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.hometop .btn-quiz:hover {
+    filter: brightness(0.86);         
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(31, 122, 51, 0.22);
+}
+
+.hometop .btn-quiz:focus {
+    outline: 3px solid rgba(40, 167, 69, 0.22);
+    outline-offset: 3px;
+    border-radius: 999px;
+}
+
+.homemiddle h1{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+
+}
+.homemiddle p{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+
+}
+.homemiddle .home-cta {
+    flex-basis: 100%;
+  display: flex;
+  justify-content: center; 
+  padding-top: 18px;      
+  box-sizing: border-box;
+}
+
+
+.homemiddle .btn-quiz {
+    background: #28a745;            
+    color: #ffffff;
+    border: none;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 999px;            
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(40, 167, 69, 0.18);
+    transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+.homemiddle .btn-quiz:hover {
+    filter: brightness(0.86);          
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(31, 122, 51, 0.22);
+}
+
+.homemiddle {
+    background-color: rgba(0, 0, 0, 0.10); /* black at 10% opacity */
+  border-top: 3px solid #000;            /* 3px top border */
+  border-bottom: 3px solid #000;         /* 3px bottom border */
+  border-left: none;
+  border-right: none;
+  padding: 1rem;                         /* adjust spacing as needed */
+  box-sizing: border-box;
+  width: 100%;                           
+}
+
+.homebottom {
+  padding-top: 90px;
+  padding-bottom: 70px;
+}
+
+.homebottom h1{
+    text-align: center;
+    font-family: var(--font-headline);
+    color: #0A1244;
+    font-weight: 700;
+    padding-bottom: 50px;
+    
+}
+
+.shell{
+  padding:40px 0; /* was 80px */
+}
+
+/* Base card (kept for compatibility) */
+.wsk-cp-product{
+  background:#fff;
+  padding:8px;               /* was 15px */
+  border-radius:3px;         /* was 6px */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  position:relative;
+  margin:10px auto;          /* was 20px */
+}
+
+/* Modifier class: use this on individual cards to make only those half-size.
+   Example: <div class="wsk-cp-product wsk-cp-product--half"> */
+.wsk-cp-product--half{
+  padding:8px;
+  border-radius:3px;
+  margin:10px auto;
+}
+
+/* Image container */
+.wsk-cp-img{
+  position:absolute;
+  top:3px;                   /* was 5px */
+  left:50%;
+  transform:translate(-50%);
+  -webkit-transform:translate(-50%);
+  width:100%;
+  padding:15px;               /* was 15px */
+  transition: all 0.2s ease-in-out;
+  
+}
+.wsk-cp-img img{
+  width:100%;
+  transition: all 0.2s ease-in-out;
+  border-radius:3px;         /* was 6px */
+}
+.wsk-cp-product:hover .wsk-cp-img{
+  top:-20px;                 /* was -40px */
+}
+.wsk-cp-product:hover .wsk-cp-img img{
+  box-shadow: 0 10px 20px rgba(0,0,0,0.22), 0 8px 6px rgba(0,0,0,0.18);
+}
+
+/* Content area height: reduce from 150% to 75% to halve vertical space */
+.wsk-cp-text{
+  padding-top:75%;           /* was 150% */
+}
+
+/* Category badge and spacing */
+.wsk-cp-text .category{
+  text-align:center;
+  font-size:11px;            /* slightly smaller (was 12px) */
+  font-weight:bold;
+  padding:4px;
+  margin-bottom:22px;        /* was 45px */
+  position:relative;
+  transition: all 0.2s ease-in-out;
+}
+.wsk-cp-text .category > *{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+}
+
+/* Badge size reduced */
+.wsk-cp-text .category > span{
+  padding:6px 15px;          /* was 12px 30px */
+  border: 1px solid #313131;
+  background:#212121;
+  color:#fff;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.22), 0 8px 6px rgba(0,0,0,0.18);
+  border-radius:14px;        /* was 27px */
+  transition: all 0.05s ease-in-out;
+}
+.wsk-cp-product:hover .wsk-cp-text .category > span{
+  border-color:#ddd;
+  box-shadow: none;
+  padding:5px 14px;          /* was 11px 28px */
+}
+.wsk-cp-product:hover .wsk-cp-text .category{
+  margin-top: 0px;
+}
+
+/* Footer (you can further tweak spacing/font-size if needed) */
+.card-footer { 
+  padding:6px 8px;           /* optional smaller footer padding */
+}
+.wcf-left .price {
+  font-size:0.9em;           /* slightly reduced */
+}
+.wcf-right .buy-btn i {
+  font-size:1em;             /* adjust icon size if necessary */
+}
+
+.wsk-cp-img img{
+  width:60%;            /* shrink from 100% to 60% */
+  max-width:240px;      /* cap maximum size */
+  height:auto;
+  display:block;
+  margin:0 auto;        /* center inside the absolute container */
+  border-radius:3px;
+  transition: all 0.18s ease-in-out;
+}
+
+/* If you only want a smaller image on cards using the modifier, use this instead:
+   (apply class "wsk-cp-product--half" to the card element) */
+.wsk-cp-product--half .wsk-cp-img img{
+  width:50%;
+  max-width:180px;
+}
+
+/* Reduce the hover lift for smaller images so it doesn't move too far */
+.wsk-cp-product:hover .wsk-cp-img{
+  top:-12px;}
+
+  .card-footer{
+  padding: 25px 0 5px;
+  border-top: 1px solid #ddd;
+}
+.card-footer:after, .card-footer:before{
+  content:'';
+  display:table;
+}
+.card-footer:after{
+  clear:both;
+}
+
+.card-footer .wcf-left{
+  float:left;
+  
+}
+
+.price{
+  font-size:18px;
+  font-weight:bold;
+}
+
+
+/* Constrain card width and center it inside the column/page */
+.wsk-cp-product {
+  max-width: 280px;   /* change this value to your preferred card width */
+  width: 100%;        /* allows card to shrink on small screens */
+  margin: 10px auto;  /* center horizontally */
+  box-sizing: border-box;
+}
+
+/* If you want a fixed width instead of fluid: uncomment this
+.wsk-cp-product {
+  width: 280px;
+}
+*/
+
+/* Make sure the absolute image container is constrained to the card */
+.wsk-cp-img {
+  width: 100%;        /* stays relative to .wsk-cp-product's width */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Center a grid of cards and avoid full-width columns (Bootstrap) */
+.row.justify-content-center { justify-content: center; }
+
+/* Use .col-auto to let each column fit its content (card) */
+.col-auto { flex: 0 0 auto; width: auto; }
+
+.buy-btn {
+  display: inline-flex;           /* center contents inside the circle */
+  align-items: center;
+  justify-content: center;
+  width: 35px;                    /* keep existing button size */
+  height: 35px;
+  line-height: 1;
+  padding: 0;                      /* icon sizing is controlled by child */
+  border-radius: 50%;
+  overflow: hidden;                /* crop any overflow */
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+/* Icon font (zmdi / fa) inside the button */
+.buy-btn i {
+  font-style: normal;
+  font-size: 18px;                 /* visually fills ~50% of button */
+  line-height: 1;
+  display: block;
+}
+
+.card-footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 0 5px;
+  border-top: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+/* left side (price) stays on the left */
+.card-footer .wcf-left {
+  margin: 0;
+}
+
+/* New add-to-cart button (replaces the previous .wcf-right area) */
+.add-to-cart-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid #212121;
+  background: transparent;
+  color: #212121;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: background .18s ease, color .18s ease, border-color .18s ease;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* make any icon (img/svg) fit nicely inside the circular button */
+.add-to-cart-btn img {
+  width: 60%;
+  height: 60%;
+  display: block;
+  object-fit: contain;
+  pointer-events: none; /* icon shouldn't capture clicks */
+}
+
+/* Hover and focus states turn the button green */
+.add-to-cart-btn:hover,
+.add-to-cart-btn:focus {
+  background: #4CAF50;     /* green */
+  color: #fff;
+  border-color: #4CAF50;
+  outline: none;
+}
+
+/* Active (pressed) state slightly darker */
+.add-to-cart-btn:active {
+  background: #388E3C;
+  border-color: #388E3C;
+  color: #fff;
+}
+
+/* .clicked is a helper class you can add via JS to keep the button green
+   (useful in single-page apps where you want the button to stay green after click) */
+.add-to-cart-btn.clicked {
+  background: #4CAF50;
+  border-color: #4CAF50;
+  color: #fff;
+}
+
+/* Accessibility: visible focus ring fallback for keyboard users */
+.add-to-cart-btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(76,175,80,0.18);
+  outline: none;
+}
+
