@@ -1,13 +1,13 @@
 import React from 'react'
 import keypic from '../assets/key.png'
 import "../pagesstyles/signup.css"
-const Signin = () => {
+const Forgotpass = () => {
   return (
     <div>
         <div class="signbody">
 
 <div class="wrapper">
-    <h1>Sign in</h1>
+    <p>Forgotten Password?</p>
     <p id="error-message"></p>
     <form id="form">
       <div>
@@ -17,16 +17,11 @@ const Signin = () => {
         <input type="email" name="email" id="email-input" placeholder="Email"/>
       </div>
       <div>
-        <label for="password-input">
-            <img src={keypic} alt="" height="24" viewBox="0 -960 960 960" width="24"/>
-        </label>
-        <input type="password" name="password" id="password-input" placeholder="Password"/>
+        
       </div>
       
     </form>
-    <a href="signup">Dont't have an account?</a>
-    <a href="forgotpass">Forgotten your password?</a>
-    <button type="submit">sign in </button>
+    <button type="submit">Send Email </button>
   </div>
 
   </div>
@@ -35,4 +30,4 @@ const Signin = () => {
   )
 }
 
-export default Signin
+export default Forgotpass

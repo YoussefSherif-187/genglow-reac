@@ -85,7 +85,7 @@ const Signup = () => {
           </form>
           <a href="signin">Already have an account?</a>
           <a href="verify">Want to Verify your account?</a>
-          <a href="verify">Resend verification code</a>
+          <a href="Resendverify">Resend verification code</a>
           <button onClick={SignupHanlder}>Sign up</button>
          
         </div>

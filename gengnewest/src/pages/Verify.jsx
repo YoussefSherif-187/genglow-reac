@@ -43,7 +43,7 @@ const Verify = () => {
   <input type="code" value={code} onChange={(e) => setCode(e.target.value)} name="code"  id="code-input" placeholder="Code"/>
 </div>
 </form>
-<a href="verify">Resend verification code</a>
+<a href="resendverify">Resend verification code</a>
   <button onClick={VerifyHanlder}>Verify</button>
 
 </div>

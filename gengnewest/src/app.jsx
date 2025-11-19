@@ -15,6 +15,8 @@ import Genquiz from "./pages/Genquiz";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Verify from "./pages/Verify";
+import Forgotpass from "./pages/Forgotpass";
+import Resendverify from "./pages/Resendverify";
 import Dashboard from "./pages/Dashboard";
 import Privacypolicy from "./pages/Privacypolicy";
 
@@ -32,6 +34,8 @@ export function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/verify" element={<Verify />} />
+        <Route path="/forgotpass" element={<Forgotpass />} />
+        <Route path="/resendverify" element={<Resendverify />} />
         <Route path='/dashboard' element={<Privateroutes allowedRoles={["user"]}><Dashboard /></Privateroutes>}/>
         <Route path='/requestsample' element={<Requestsample/>}/>
         <Route path='/bookexam' element={<Bookexam/>}/>

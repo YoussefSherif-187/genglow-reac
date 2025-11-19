@@ -26,6 +26,11 @@
   font-weight: 900;
   text-transform: uppercase;
 }
+.signbody p {
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
 .signbody form {
   width: min(400px, 100%);
   margin-top: 20px;
