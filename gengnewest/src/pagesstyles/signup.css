@@ -1,8 +1,7 @@
 .signbody {
   min-height: 100vh;
-  background-color: green;
+background-image: url("../assets/signback.png");
   background-size: cover;
-  background-position: right;
   overflow: hidden;
   display: flex;
   justify-content: center; /* Horizontal centering */

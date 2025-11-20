@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import keypic from '../assets/key.png'
 import "../pagesstyles/signup.css"
-
+import Alerts from "../comp/Alerts";
 const Verify = () => {
+  const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   
@@ -14,11 +16,23 @@ const Verify = () => {
         code: code,
       })
       .then(response => {
-        alert("Email Verified");
+        setSuccessMessage("Email verfied successfully!");
+    setErrorMessage("");
       })
       .catch(error => {
-        console.log(error);
-        alert("error. You may have entered a field incorrectly.");
+        console.log("Full error response:", error.response);
+
+  const data = error?.response?.data;
+
+  const backendMessage =
+    data?.message ||
+    data?.error ||
+    data?.msg ||
+    (typeof data === "string" ? data : null) ||
+    "An unexpected error occurred.";
+
+  setErrorMessage(backendMessage);
+  setSuccessMessage("");
       });
   };
   return (
@@ -45,7 +59,8 @@ const Verify = () => {
 </form>
 <a href="resendverify">Resend verification code</a>
   <button onClick={VerifyHanlder}>Verify</button>
-
+  {successMessage && <Alerts type="success" message={successMessage} />}
+{errorMessage && <Alerts type="error" message={errorMessage} />}
 </div>
 
 </div>

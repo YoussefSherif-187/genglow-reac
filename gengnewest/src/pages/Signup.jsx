@@ -4,9 +4,11 @@ import keypic from "../assets/key.png";
 import user2 from "../assets/user2.png";
 import "../pagesstyles/signup.css";
 import axios from "axios";
+import Alerts from "../comp/Alerts";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -22,14 +24,26 @@ const Signup = () => {
         navigate('/verify');
       })
       .catch(error => {
-        console.log(error);
-        alert("error. You may have entered a field incorrectly, or have already sent a verification mail, in that case click on Resend verification code");
+        console.log("Full error response:", error.response);
+
+  const data = error?.response?.data;
+
+  const backendMessage =
+    data?.message ||
+    data?.error ||
+    data?.msg ||
+    (typeof data === "string" ? data : null) ||
+    "An unexpected error occurred.";
+
+  setErrorMessage(backendMessage);
+
       });
   };
 
   return (
     <div>
       <div className="signbody">
+
         <div className="wrapper">
           <h1>Sign up</h1>
           <p id="error-message"></p>
@@ -87,6 +101,8 @@ const Signup = () => {
           <a href="verify">Want to Verify your account?</a>
           <a href="Resendverify">Resend verification code</a>
           <button onClick={SignupHanlder}>Sign up</button>
+          {errorMessage && <Alerts type="error" message={errorMessage} />}
+
          
         </div>
       </div>
