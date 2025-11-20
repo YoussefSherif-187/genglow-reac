@@ -4,8 +4,8 @@ background-image: url("../assets/signback.png");
   background-size: cover;
   overflow: hidden;
   display: flex;
-  justify-content: center; /* Horizontal centering */
-  align-items: center;    /* Vertical centering */
+  justify-content: center; 
+  align-items: center;   
 
 }
 .wrapper { 
@@ -13,7 +13,6 @@ background-image: url("../assets/signback.png");
    background-color: white;
     height: 700px;
     width: 500px;
-     /* don't force full viewport height — lets it be centered / width: min(40%, 600px); / limit width to 600px or 40% of viewport (whichever is smaller) */ 
      border-radius: 20px 20px 20px 20px; 
      display: flex; 
      flex-direction: column; 

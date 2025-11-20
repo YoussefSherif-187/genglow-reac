@@ -19,7 +19,7 @@ import Forgotpass from "./pages/Forgotpass";
 import Resendverify from "./pages/Resendverify";
 import Dashboard from "./pages/Dashboard";
 import Privacypolicy from "./pages/Privacypolicy";
-
+import Singleproduct from "./pages/Singleproduct";
 
 export function App() {
   return (
@@ -41,6 +41,7 @@ export function App() {
         <Route path='/bookexam' element={<Bookexam/>}/>
         <Route path='/genquiz' element={<Genquiz/>}/>
         <Route path='/privacypolicy' element={<Privacypolicy/>}/>
+        <Route path='/product/:id' element={<Singleproduct/>}/>
         <Route path="/unauthorized" element={<h2>Unauthorized</h2>} />
       </Routes>
       <Footer />
@@ -48,11 +49,3 @@ export function App() {
   );
 }
 
-// 1
-    // https://medium.com/@dennisivy/creating-protected-routes-with-react-router-v6-2c4bbaf7bc1c
-
-    // 2
-    // verify page
-
-    // 3
-    // empty dashboard protected page
