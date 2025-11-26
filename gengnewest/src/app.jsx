@@ -2,7 +2,7 @@ import react from "react";
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./auth/AuthContext";
 import Privateroutes from "./Privateroutes";
-
+import PublicOnlyRoute from "./PublicOnlyRoute";
 
 import Navbar from "./comp/navbar";
 import Footer from "./comp/Footer";
@@ -23,7 +23,6 @@ import Singleproduct from "./pages/Singleproduct";
 
 export function App() {
   return (
-    
     <>
       <Navbar />
       <Routes>
@@ -32,20 +31,33 @@ export function App() {
         <Route path="/aboutus" element={<Aboutus />} />
         <Route path="/contactus" element={<Contactus />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route
+          path="/signin"
+          element={
+            <PublicOnlyRoute>
+              <Signin />
+            </PublicOnlyRoute>
+          }
+        />
         <Route path="/verify" element={<Verify />} />
         <Route path="/forgotpass" element={<Forgotpass />} />
         <Route path="/resendverify" element={<Resendverify />} />
-        <Route path='/dashboard' element={<Privateroutes allowedRoles={["user"]}><Dashboard /></Privateroutes>}/>
-        <Route path='/requestsample' element={<Requestsample/>}/>
-        <Route path='/bookexam' element={<Bookexam/>}/>
-        <Route path='/genquiz' element={<Genquiz/>}/>
-        <Route path='/privacypolicy' element={<Privacypolicy/>}/>
-        <Route path='/product/:id' element={<Singleproduct/>}/>
+        <Route
+          path="/dashboard"
+          element={
+            <Privateroutes allowedRoles={["user"]}>
+              <Dashboard />
+            </Privateroutes>
+          }
+        />
+        <Route path="/requestsample" element={<Requestsample />} />
+        <Route path="/bookexam" element={<Bookexam />} />
+        <Route path="/genquiz" element={<Genquiz />} />
+        <Route path="/privacypolicy" element={<Privacypolicy />} />
+        <Route path="/product/:id" element={<Singleproduct />} />
         <Route path="/unauthorized" element={<h2>Unauthorized</h2>} />
       </Routes>
       <Footer />
     </>
   );
 }
-

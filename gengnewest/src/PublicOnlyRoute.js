@@ -2,17 +2,15 @@ import { useContext } from "react";
 import { AuthContext } from "./auth/AuthContext";
 import { Navigate } from "react-router-dom";
 
-const PrivateRoutes = ({ children, allowedRoles }) => {
+const PublicOnlyRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
 
   if (loading) return <h2>Loading...</h2>;
 
-  if (!user) return <Navigate to="/signin" replace />;
-
-  if (allowedRoles && !allowedRoles.includes(user.role))
-    return <Navigate to="/unauthorized" replace />;
+  // If logged in → redirect away from signin/signup
+  if (user) return <Navigate to="/dashboard" replace />;
 
   return children;
 };
 
-export default PrivateRoutes;
+export default PublicOnlyRoute;
