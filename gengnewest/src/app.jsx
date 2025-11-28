@@ -30,32 +30,29 @@ export function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/aboutus" element={<Aboutus />} />
         <Route path="/contactus" element={<Contactus />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/signin"
-          element={
-            <PublicOnlyRoute>
-              <Signin />
-            </PublicOnlyRoute>
-          }
-        />
-        <Route path="/verify" element={<Verify />} />
-        <Route path="/forgotpass" element={<Forgotpass />} />
-        <Route path="/resendverify" element={<Resendverify />} />
-        <Route
-          path="/dashboard"
-          element={
-            <Privateroutes allowedRoles={["user"]}>
-              <Dashboard />
-            </Privateroutes>
-          }
-        />
-        <Route path="/requestsample" element={<Requestsample />} />
-        <Route path="/bookexam" element={<Bookexam />} />
-        <Route path="/genquiz" element={<Genquiz />} />
         <Route path="/privacypolicy" element={<Privacypolicy />} />
         <Route path="/product/:id" element={<Singleproduct />} />
+
+
+
+        <Route path="/signup" element={<PublicOnlyRoute><Signup /></PublicOnlyRoute>} />
+        <Route path="/signin" element={<PublicOnlyRoute><Signin /></PublicOnlyRoute>}/>
+        <Route path="/verify" element={<PublicOnlyRoute><Verify /></PublicOnlyRoute>} />
+        <Route path="/forgotpass" element={<PublicOnlyRoute><Forgotpass /></PublicOnlyRoute>} />
+        <Route path="/resendverify" element={<PublicOnlyRoute><Resendverify /></PublicOnlyRoute>} />
+
+
+
+        <Route path="/dashboard" element={<Privateroutes allowedRoles={["user"]}><Dashboard /></Privateroutes>}/>
+        <Route path="/requestsample" element={<Privateroutes allowedRoles={["user"]}><Requestsample /></Privateroutes>}/>
+        <Route path="/bookexam" element={<Privateroutes allowedRoles={["user"]}><Bookexam /></Privateroutes>}/>
+        <Route path="/genquiz" element={<Privateroutes allowedRoles={["user"]}><Genquiz /></Privateroutes>}/>
+
+
+        
         <Route path="/unauthorized" element={<h2>Unauthorized</h2>} />
+
+        
       </Routes>
       <Footer />
     </>

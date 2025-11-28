@@ -15,19 +15,16 @@ const Signin = () => {
   const [successMessage, setSuccessMessage] = useState("");
 
   const SiginHanlder = async () => {
-    try {
-      await login(email, password);
+  try {
+    await login(email, password);
+    setSuccessMessage("Login successful");
 
-      setSuccessMessage("Login successful");
+    setTimeout(() => navigate("/dashboard"), 500);
+  } catch (e) {
+    setSuccessMessage(""); // error message comes from context
+  }
+};
 
-      // 🔥 redirect after success
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 500);
-    } catch (e) {
-      setSuccessMessage("");
-    }
-  };
 
   return (
     <div>

@@ -58,6 +58,7 @@ font-size: 40px;
   font-size: 18px;
   background: greenyellow;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  
 }
 @media (max-width: 768px) {
   .sinprod-container {
@@ -65,3 +66,17 @@ font-size: 40px;
   }
 }
 
+.order-btn {
+  margin-top: 20px;
+  background: #ff4d6d;
+  padding: 10px 20px;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.order-btn:hover {
+  background: #e63950;
+}

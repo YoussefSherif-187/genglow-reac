@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../pagesstyles/singleproduct.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import qs from "qs";
 import prod1 from "../assets/products/prod1.png";
 import prod2 from "../assets/products/prod2.png";
 import prod3 from "../assets/products/prod3.png";
@@ -42,6 +43,41 @@ const Singleproduct = () => {
   const image = product.image || fallbackImages[fallbackIndex];
 
 
+const placeOrder = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Please sign in to place an order.");
+      return;
+    }
+
+    const data = qs.stringify({
+      "products[0][product]": product._id || product.id,
+      "products[0][quantity]": 1
+    });
+
+    const res = await axios.post(
+      "https://genglow-backend.vercel.app/api/orders",
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
+
+    alert("Order placed successfully!");
+    console.log(res.data);
+
+  } catch (error) {
+    console.log("Order Error:", error.response?.data || error);
+    alert(error.response?.data?.error || "Failed to place order");
+  }
+};
+
+
 
 
   return (
@@ -56,7 +92,10 @@ const Singleproduct = () => {
   <div class="sinprod-right-section">
     <div class="sinprod-text-blockup">Description: {product.description}</div>
     <div class="sinprod-text-blockdown">Price:{product.price} EGP</div>
-    
+    <button className="order-btn" onClick={placeOrder}>
+  Place Order
+</button>
+
   </div>
 </div>
 
