@@ -19,7 +19,7 @@ const Signin = () => {
     await login(email, password);
     setSuccessMessage("Login successful");
 
-    setTimeout(() => navigate("/dashboard"), 500);
+    setTimeout(() => navigate("/home"), 500);
   } catch (e) {
     setSuccessMessage(""); // error message comes from context
   }

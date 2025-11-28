@@ -8,7 +8,7 @@ const PublicOnlyRoute = ({ children }) => {
   if (loading) return <h2>Loading...</h2>;
 
   // If logged in → redirect away from signin/signup
-  if (user) return <Navigate to="/dashboard" replace />;
+  if (user) return <Navigate to="/home" replace />;
 
   return children;
 };
