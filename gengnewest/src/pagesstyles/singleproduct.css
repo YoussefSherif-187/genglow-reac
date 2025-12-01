@@ -68,13 +68,17 @@ font-size: 40px;
 
 .order-btn {
   margin-top: 20px;
-  background: #ff4d6d;
-  padding: 10px 20px;
+  background: green;
   border: none;
   color: white;
   border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
+  padding: 12px 22px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 999px; 
+    width: 200px;
 }
 
 .order-btn:hover {

@@ -323,3 +323,12 @@ font-size: 60px;
   padding-top: 10px;
   color: green;
 }
+
+.description-prod p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+          line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

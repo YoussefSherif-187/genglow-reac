@@ -13,9 +13,13 @@ const styles = {
 
 const Alerts = ({ type, message }) => {
   return (
-    <div style={{ ...styles.base, ...styles[type] }}>
-      {message}
+
+    <div className="alertstyle">
+      <div style={{ ...styles.base, ...styles[type] }}>
+        {message}
+      </div>
     </div>
+
   );
 };
 

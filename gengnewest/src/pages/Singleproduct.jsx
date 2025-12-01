@@ -3,6 +3,7 @@ import "../pagesstyles/singleproduct.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import qs from "qs";
+import Alerts from "../comp/Alerts";
 import prod1 from "../assets/products/prod1.png";
 import prod2 from "../assets/products/prod2.png";
 import prod3 from "../assets/products/prod3.png";
@@ -22,6 +23,8 @@ const fallbackImages = [prod1, prod2, prod3, prod4, prod6, prod8, prod9, prod10,
 
 
 const Singleproduct = () => {
+  const [successMessage, setSuccessMessage] = useState("");
+      const [errorMessage, setErrorMessage] = useState("");
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   
@@ -48,7 +51,8 @@ const placeOrder = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      alert("Please sign in to place an order.");
+    
+      setErrorMessage("Please sign in to place an order.");
       return;
     }
 
@@ -67,13 +71,16 @@ const placeOrder = async () => {
         },
       }
     );
+    setSuccessMessage("Order placed successfully!");
+        setErrorMessage("");
 
-    alert("Order placed successfully!");
     console.log(res.data);
 
   } catch (error) {
     console.log("Order Error:", error.response?.data || error);
-    alert(error.response?.data?.error || "Failed to place order");
+    const backendMessage = error.response?.data?.error || "Failed to place order";
+    setErrorMessage(backendMessage);
+    setSuccessMessage("");
   }
 };
 
@@ -95,6 +102,8 @@ const placeOrder = async () => {
     <button className="order-btn" onClick={placeOrder}>
   Place Order
 </button>
+{successMessage && <Alerts type="success" message={successMessage} />}
+{errorMessage && <Alerts type="error" message={errorMessage} />}
 
   </div>
 </div>
