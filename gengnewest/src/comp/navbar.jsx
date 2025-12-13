@@ -5,31 +5,38 @@ import "../app.css";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [role, setRole] = useState(localStorage.getItem("role"));
 
-  // Listen for storage changes (works if login happens in another tab)
+  // Sync auth + role
   useEffect(() => {
-    const handleStorageChange = () => {
+    const syncAuth = () => {
       setIsLoggedIn(!!localStorage.getItem("token"));
+      setRole(localStorage.getItem("role"));
     };
 
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
+    window.addEventListener("storage", syncAuth);
 
-  // Optional: poll for token in the same tab
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsLoggedIn(!!localStorage.getItem("token"));
-    }, 500);
+    const interval = setInterval(syncAuth, 500);
 
-    return () => clearInterval(interval);
+    return () => {
+      window.removeEventListener("storage", syncAuth);
+      clearInterval(interval);
+    };
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("role");
     setIsLoggedIn(false);
     window.location.href = "/home";
+  };
+
+  // 🔹 Decide dashboard path based on role
+  const getDashboardPath = () => {
+    if (role === "admin") return "/admin";
+    if (role === "pharmacist") return "/pharmacist";
+    return "/user";
   };
 
   return (
@@ -62,10 +69,12 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <a href="/dashboard">Dashboard</a>
-              <button className="logout-btn"
+              {/* ✅ Role-based dashboard */}
+              <a href={getDashboardPath()}>Dashboard</a>
+
+              <button
+                className="logout-btn"
                 onClick={handleLogout}
-                
               >
                 Log Out
               </button>

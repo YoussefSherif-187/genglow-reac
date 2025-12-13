@@ -17,9 +17,25 @@ import Signin from "./pages/Signin";
 import Verify from "./pages/Verify";
 import Forgotpass from "./pages/Forgotpass";
 import Resendverify from "./pages/Resendverify";
-import Dashboard from "./pages/Dashboard";
 import Privacypolicy from "./pages/Privacypolicy";
 import Singleproduct from "./pages/Singleproduct";
+import UserProfile from './userdashboard/Userprofile';
+import MyOrders from './userdashboard/MyOrders';
+import OrderDetails from './userdashboard/OrderDetails';
+import PaymentHistory from './userdashboard/PaymentHistory';
+import MyReviews from './userdashboard/MyReviews';
+import ReportsAnalytics from './admindashboard/ReportsAnalytics';
+import AllUsers from './admindashboard/AllUsers';
+import AllProducts from './admindashboard/AllProducts';
+import AllOrders from './admindashboard/AllOrders';
+import AllPayments from './admindashboard/AllPayments';
+import AllSampleRequests from './admindashboard/AllSampleRequests';
+import AllQuizResults from './admindashboard/AllQuizResults';
+import ShippingPartnerManagement from './admindashboard/ShippingPartnerManagement';
+import PharmacistQuizResults from './pharmacistdashboard/PharmacistQuizResults';
+import ApprovedSamples from './pharmacistdashboard/ApprovedSamples';
+import ExaminationBooking from './pharmacistdashboard/ExaminationBooking';
+import AddProducts from './pharmacistdashboard/AddProducts';
 
 export function App() {
   return (
@@ -43,17 +59,46 @@ export function App() {
 
 
 
-        <Route path="/dashboard" element={<Privateroutes allowedRoles={["user"]}><Dashboard /></Privateroutes>}/>
-        <Route path="/requestsample" element={<Privateroutes allowedRoles={["user"]}><Requestsample /></Privateroutes>}/>
-        <Route path="/bookexam" element={<Privateroutes allowedRoles={["user"]}><Bookexam /></Privateroutes>}/>
-        <Route path="/genquiz" element={<Privateroutes allowedRoles={["user"]}><Genquiz /></Privateroutes>}/>
+        <Route path="/requestsample" element={<Privateroutes allowedRoles={['user', 'admin', 'pharmacist']}><Requestsample /></Privateroutes>} />
+        <Route path="/bookexam" element={<Privateroutes allowedRoles={['user', 'admin', 'pharmacist']}><Bookexam /></Privateroutes>} />
+        <Route path="/genquiz" element={<Privateroutes allowedRoles={['user', 'admin', 'pharmacist']}><Genquiz /></Privateroutes>} />
 
+
+
+        <Route path="/user" element={<Privateroutes allowedRoles={['user']}><UserProfile /></Privateroutes>} />
+        <Route path="/user/profile" element={<Privateroutes allowedRoles={['user']}><UserProfile /></Privateroutes>} />
+        <Route path="/user/orders" element={<Privateroutes allowedRoles={['user']}><MyOrders /></Privateroutes>} />
+        <Route path="/user/order-details" element={<Privateroutes allowedRoles={['user']}><OrderDetails /></Privateroutes>} />
+        <Route path="/user/payments" element={<Privateroutes allowedRoles={['user']}><PaymentHistory /></Privateroutes>} />
+        <Route path="/user/reviews" element={<Privateroutes allowedRoles={['user']}><MyReviews /></Privateroutes>} />
+
+
+
+        <Route path="/admin" element={<Privateroutes allowedRoles={['admin']}><ReportsAnalytics /></Privateroutes>} />
+        <Route path="/admin/reports" element={<Privateroutes allowedRoles={['admin']}><ReportsAnalytics /></Privateroutes>} />
+        <Route path="/admin/users" element={<Privateroutes allowedRoles={['admin']}><AllUsers /></Privateroutes>} />
+        <Route path="/admin/products" element={<Privateroutes allowedRoles={['admin']}><AllProducts /></Privateroutes>} />
+        <Route path="/admin/orders" element={<Privateroutes allowedRoles={['admin']}><AllOrders /></Privateroutes>} />
+        <Route path="/admin/payments" element={<Privateroutes allowedRoles={['admin']}><AllPayments /></Privateroutes>} />
+        <Route path="/admin/samples" element={<Privateroutes allowedRoles={['admin']}><AllSampleRequests /></Privateroutes>} />
+        <Route path="/admin/quizzes" element={<Privateroutes allowedRoles={['admin']}><AllQuizResults /></Privateroutes>} />
+        <Route path="/admin/shipping" element={<Privateroutes allowedRoles={['admin']}><ShippingPartnerManagement /></Privateroutes>} />
+  
+
+
+        <Route path="/pharmacist" element={<Privateroutes allowedRoles={['pharmacist']}><PharmacistQuizResults /></Privateroutes>} />
+        <Route path="/pharmacist/quizzes" element={<Privateroutes allowedRoles={['pharmacist']}><PharmacistQuizResults /></Privateroutes>} />
+        <Route path="/pharmacist/samples" element={<Privateroutes allowedRoles={['pharmacist']}><ApprovedSamples /></Privateroutes>} />
+        <Route path="/pharmacist/exams" element={<Privateroutes allowedRoles={['pharmacist']}><ExaminationBooking /></Privateroutes>} />
+        <Route path="/pharmacist/products" element={<Privateroutes allowedRoles={['pharmacist']}><AddProducts /></Privateroutes>} />
 
         
+
         <Route path="/unauthorized" element={<h2>Unauthorized</h2>} />
 
         
       </Routes>
+
       <Footer />
     </>
   );

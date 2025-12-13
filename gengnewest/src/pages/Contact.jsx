@@ -1,5 +1,6 @@
 import React from 'react'
 import "../pagesstyles/contact.css"
+
 const contact = () => {
   return (
     <div>
