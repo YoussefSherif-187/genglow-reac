@@ -30,14 +30,8 @@ const UserSidebar = () => {
         <a href="/user/orders" className="sidebar-link">
           My Orders
         </a>
-        <a href="/user/order-details" className="sidebar-link">
-          Order Details
-        </a>
         <a href="/user/payments" className="sidebar-link">
           Payment History
-        </a>
-        <a href="/user/reviews" className="sidebar-link">
-          My Reviews
         </a>
         <a href="/user/samples" className="sidebar-link">
           My Sample Requests
