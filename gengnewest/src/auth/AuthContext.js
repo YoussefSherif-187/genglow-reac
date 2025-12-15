@@ -9,7 +9,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Load user from token on page load
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -23,7 +22,7 @@ export const AuthProvider = ({ children }) => {
       .then(res => {
         const userData = res.data.user || res.data;
         setUser(userData);
-        setRole(userData.role); // ✅ sync role
+        setRole(userData.role); 
         localStorage.setItem("role", userData.role);
       })
       .catch(() => {
@@ -35,7 +34,6 @@ export const AuthProvider = ({ children }) => {
       .finally(() => setLoading(false));
   }, []);
 
-  // login
   const login = async (email, password) => {
     try {
       const res = await api.post(
@@ -45,7 +43,7 @@ export const AuthProvider = ({ children }) => {
       );
 
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.user.role); // ✅ store role
+      localStorage.setItem("role", res.data.user.role);
 
       setUser(res.data.user);
       setRole(res.data.user.role);
@@ -60,7 +58,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // logout
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
@@ -74,8 +71,8 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
-        role,        // ✅ expose role
-        isLoggedIn,  // ✅ expose auth state
+        role,      
+        isLoggedIn,  
         login,
         logout,
         loading,

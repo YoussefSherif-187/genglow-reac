@@ -12,6 +12,9 @@ const UserSidebar = () => {
     '/user/order-details': 'Order Details',
     '/user/payments': 'Payment History',
     '/user/reviews': 'My Reviews',
+    '/user/samples': 'My Sample Requests',
+    '/user/exams': 'My Examination Booking',
+
   };
 
   const currentTitle = pageTitles[location.pathname] || 'User Profile';
@@ -35,6 +38,12 @@ const UserSidebar = () => {
         </a>
         <a href="/user/reviews" className="sidebar-link">
           My Reviews
+        </a>
+        <a href="/user/samples" className="sidebar-link">
+          My Sample Requests
+        </a>
+        <a href="/user/exams" className="sidebar-link">
+          My Examination Booking
         </a>
       </nav>
     </aside>

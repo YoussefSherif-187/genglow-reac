@@ -36,6 +36,8 @@ import PharmacistQuizResults from './pharmacistdashboard/PharmacistQuizResults';
 import ApprovedSamples from './pharmacistdashboard/ApprovedSamples';
 import ExaminationBooking from './pharmacistdashboard/ExaminationBooking';
 import AddProducts from './pharmacistdashboard/AddProducts';
+import Samples from "./userdashboard/Samples";
+import Exams from "./userdashboard/Exams";
 
 export function App() {
   return (
@@ -71,6 +73,9 @@ export function App() {
         <Route path="/user/order-details" element={<Privateroutes allowedRoles={['user']}><OrderDetails /></Privateroutes>} />
         <Route path="/user/payments" element={<Privateroutes allowedRoles={['user']}><PaymentHistory /></Privateroutes>} />
         <Route path="/user/reviews" element={<Privateroutes allowedRoles={['user']}><MyReviews /></Privateroutes>} />
+        <Route path="/user/samples" element={<Privateroutes allowedRoles={['user']}><Samples/></Privateroutes>} />
+        <Route path="/user/exams" element={<Privateroutes allowedRoles={['user']}><Exams/></Privateroutes>} />
+        
 
 
 
