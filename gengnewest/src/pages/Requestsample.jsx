@@ -1,29 +1,19 @@
 import React, { useState } from 'react'
 import "../pagesstyles/requestsample.css"
+import axios from "axios"
 
 const Requestsample = () => {
   const [selectedSamples, setSelectedSamples] = useState([])
   const [showError, setShowError] = useState(false)
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    skinType: '',
-    hairType: '',
-    concerns: '',
-    newsletter: true,
-    terms: false
-  })
+ 
 
   const samples = [
-    { id: 'face-wash', icon: 'fa-pump-soap', title: 'Natural Face Wash', desc: 'Suitable for sensitive skin with aloe vera extract' },
-    { id: 'moisturizer', icon: 'fa-prescription-bottle', title: 'Natural Skin Moisturizer', desc: 'Rich in vitamins and natural oils' },
-    { id: 'hair-serum', icon: 'fa-tint', title: 'Nourishing Hair Serum', desc: 'For strengthening hair and preventing hair loss' },
-    { id: 'anti-aging', icon: 'fa-magic', title: 'Anti-aging Cream', desc: 'Contains natural collagen extract' },
-    { id: 'sun-protection', icon: 'fa-sun', title: 'Natural Sunscreen', desc: 'SPF 50+ protection free of chemicals' },
-    { id: 'scalp-treatment', icon: 'fa-seedling', title: 'Scalp Treatment', desc: 'For reducing inflammation, itching, and dandruff' }
+  { id: '692c67e3639f7fc253aafde1', icon: 'fa-pump-soap', title: 'Herbal Acne Serum', desc: 'Helps calm breakouts with soothing herbal extracts' },
+  { id: '692c67e4639f7fc253aafde7', icon: 'fa-prescription-bottle', title: 'Brightening Vitamin C Cream', desc: 'Boosts glow with vitamin C and botanicals' },
+  { id: '692c67e3639f7fc253aafde5', icon: 'fa-tint', title: 'Hydrating Aloe Gel', desc: 'Deeply hydrates scalp and supports healthy hair' },
+  { id: '692c67e5639f7fc253aafdf1', icon: 'fa-magic', title: 'Rejuvenating Night Cream', desc: 'Nourishes skin overnight with collagen-rich formula' },
+  { id: '692c67e4639f7fc253aafdeb', icon: 'fa-sun', title: 'Strengthening Hibiscus Oil', desc: 'Protects skin with plant-based SPF defense' },
+  { id: '692c67e5639f7fc253aafdf3', icon: 'fa-seedling', title: 'Detox Herbal Tea', desc: 'Supports scalp health and reduces dandruff' }
   ]
 
   const handleSampleChange = (sampleId) => {
@@ -31,7 +21,7 @@ const Requestsample = () => {
       setSelectedSamples(selectedSamples.filter(id => id !== sampleId))
       setShowError(false)
     } else {
-      if (selectedSamples.length >= 2) {
+      if (selectedSamples.length >= 1) {
         setShowError(true)
       } else {
         setSelectedSamples([...selectedSamples, sampleId])
@@ -40,19 +30,48 @@ const Requestsample = () => {
     }
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (selectedSamples.length !== 2) {
-      setShowError(true)
-      return
-    }
-    alert('Your sample request has been received successfully! The selected samples will be shipped to your address within 3-5 business days.')
-    setFormData({
-      fullName: '', email: '', phone: '', address: '', city: '',
-      skinType: '', hairType: '', concerns: '', newsletter: true, terms: false
-    })
-    setSelectedSamples([])
+ const handleSubmit = async (e) => {
+  e.preventDefault()
+
+  if (selectedSamples.length !== 1) {
+    setShowError(true)
+    return
   }
+
+  try {
+    const token = localStorage.getItem("token") // or from context
+
+    const formBody = new URLSearchParams()
+    formBody.append("productId", selectedSamples[0])
+
+    const response = await axios.post(
+      "https://genglow-backend.vercel.app/api/samplerequests",
+      formBody,
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+
+    alert("Your sample request has been received successfully!")
+    setSelectedSamples([])
+    setShowError(false)
+
+    console.log("API response:", response.data)
+
+  } catch (error) {
+    console.error(error)
+
+    const message =
+      error.response?.data?.message ||
+      "Something went wrong. Please try again."
+
+    alert(message)
+  }
+}
+
 
   return (
     <main>
@@ -60,41 +79,13 @@ const Requestsample = () => {
         <div className="container">
           <div className="form-container">
             <h2>Request Free Samples</h2>
-            <p>Choose two samples from our products and we will send them to you for free. Just fill out the form below.</p>
+            <p>Choose one sample from our products and we will send them to you for free. </p>
             
             <form id="sample-form" onSubmit={handleSubmit}>
-              <div className="form-section">
-                <h3>Personal Information</h3>
-                <div className="form-group">
-                  <label htmlFor="fullName">Full Name*</label>
-                  <input type="text" id="fullName" className="form-control" required 
-                    value={formData.fullName} onChange={(e) => setFormData({...formData, fullName: e.target.value})} />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="email">Email*</label>
-                  <input type="email" id="email" className="form-control" required 
-                    value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="phone">Phone Number*</label>
-                  <input type="tel" id="phone" className="form-control" required 
-                    value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="address">Address*</label>
-                  <textarea id="address" className="form-control" required 
-                    value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})}></textarea>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="city">City*</label>
-                  <input type="text" id="city" className="form-control" required 
-                    value={formData.city} onChange={(e) => setFormData({...formData, city: e.target.value})} />
-                </div>
-              </div>
+              
               
               <div className="form-section">
-                <h3>Requested Samples</h3>
-                <p>You can choose only two samples from the following products:</p>
+              
                 
                 <div className="samples-grid">
                   {samples.map(sample => (
@@ -112,60 +103,14 @@ const Requestsample = () => {
                 
                 {showError && (
                   <div id="sample-error" className="error-message" style={{ color: 'red', marginTop: '10px' }}>
-                    Please select only two samples
+                    Please select only one sample
                   </div>
                 )}
               </div>
               
-              <div className="form-section">
-                <h3>Additional Information</h3>
-                <div className="form-group">
-                  <label htmlFor="skin-type">Skin Type</label>
-                  <select id="skin-type" className="form-control" value={formData.skinType}
-                    onChange={(e) => setFormData({...formData, skinType: e.target.value})}>
-                    <option value="">-- Select --</option>
-                    <option value="oily">Oily</option>
-                    <option value="dry">Dry</option>
-                    <option value="combination">Combination</option>
-                    <option value="sensitive">Sensitive</option>
-                    <option value="normal">Normal</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="hair-type">Hair Type</label>
-                  <select id="hair-type" className="form-control" value={formData.hairType}
-                    onChange={(e) => setFormData({...formData, hairType: e.target.value})}>
-                    <option value="">-- Select --</option>
-                    <option value="straight">Straight</option>
-                    <option value="wavy">Wavy</option>
-                    <option value="curly">Curly</option>
-                    <option value="coily">Coily</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="concerns">Issues You're Experiencing</label>
-                  <textarea id="concerns" className="form-control" value={formData.concerns}
-                    onChange={(e) => setFormData({...formData, concerns: e.target.value})}
-                    placeholder="Please mention any skin or hair problems you would like to treat"></textarea>
-                </div>
-              </div>
+             
               
-              <div className="form-section">
-                <div className="form-group">
-                  <label className="checkbox-label">
-                    <input type="checkbox" id="newsletter" checked={formData.newsletter}
-                      onChange={(e) => setFormData({...formData, newsletter: e.target.checked})} />
-                    I want to subscribe to the newsletter
-                  </label>
-                </div>
-                <div className="form-group">
-                  <label className="checkbox-label">
-                    <input type="checkbox" id="terms" required checked={formData.terms}
-                      onChange={(e) => setFormData({...formData, terms: e.target.checked})} />
-                    I agree to the <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a>*
-                  </label>
-                </div>
-              </div>
+              
               
               <div className="form-submit">
                 <button type="submit" className="btn btn-primary btn-large">Request Free Samples</button>
