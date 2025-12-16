@@ -3,7 +3,7 @@ import axios from "axios";
 
 import AdminSidebar from "../comp/AdminSidebar";
 import Alerts from "../comp/Alerts";
-import ConfirmModal from '../comp/ConfirmModal';
+import ConfirmModal from "../comp/ConfirmModal";
 
 import "../pagesstyles/dashboard.css";
 import "../adminstyles/suppliers.css";
@@ -25,9 +25,10 @@ const SupplierManagement = () => {
     address: ""
   });
 
-  /* UPDATE FORM */
+  /* UPDATE FORM (NOW INCLUDES NAME) */
   const [editingSupplier, setEditingSupplier] = useState(null);
   const [updateForm, setUpdateForm] = useState({
+    name: "",
     email: "",
     phone: "",
     address: ""
@@ -93,6 +94,7 @@ const SupplierManagement = () => {
   const startEdit = (supplier) => {
     setEditingSupplier(supplier);
     setUpdateForm({
+      name: supplier.name,
       email: supplier.email,
       phone: supplier.phone,
       address: supplier.address
@@ -144,16 +146,14 @@ const SupplierManagement = () => {
       <main className="main-content suppliers">
         {alertType && <Alerts type={alertType} message={alertMessage} />}
 
-        
         <ConfirmModal
-  show={!!confirmDeleteId}
-  message="Are you sure you want to delete this supplier? This action cannot be undone."
-  confirmText="Yes, Delete Supplier"
-  cancelText="Cancel"
-  onCancel={() => setConfirmDeleteId(null)}
-  onConfirm={() => deleteSupplier(confirmDeleteId)}
-/>
-
+          show={!!confirmDeleteId}
+          message="Are you sure you want to delete this supplier? This action cannot be undone."
+          confirmText="Yes, Delete Supplier"
+          cancelText="Cancel"
+          onCancel={() => setConfirmDeleteId(null)}
+          onConfirm={() => deleteSupplier(confirmDeleteId)}
+        />
 
         <h2 className="page-title">Supplier Management</h2>
 
@@ -206,8 +206,17 @@ const SupplierManagement = () => {
         {editingSupplier && (
           <div className="card">
             <h3 className="card-title">
-              Update Supplier — {editingSupplier.name}
+              Update Supplier — {updateForm.name}
             </h3>
+
+            <input
+              className="form-input"
+              placeholder="Name"
+              value={updateForm.name}
+              onChange={(e) =>
+                setUpdateForm({ ...updateForm, name: e.target.value })
+              }
+            />
 
             <input
               className="form-input"
@@ -250,7 +259,7 @@ const SupplierManagement = () => {
           </div>
         )}
 
-        {/* LIST */}
+        {/* SUPPLIER LIST */}
         {loading ? (
           <div className="loading-state">Loading suppliers...</div>
         ) : suppliers.length === 0 ? (
