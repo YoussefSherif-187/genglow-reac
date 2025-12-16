@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+
+import ConfirmModal from '../comp/ConfirmModal';
 import UserSidebar from '../comp/Usersidebar';
 import Alerts from '../comp/Alerts';
+
 import "../pagesstyles/dashboard.css";
 import "../userstyles/userprofile.css";
-
 
 const UserProfile = () => {
   const [profile, setProfile] = useState(null);
@@ -14,18 +16,23 @@ const UserProfile = () => {
   const [alertType, setAlertType] = useState(null);
   const [alertMessage, setAlertMessage] = useState('');
 
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    axios.get('https://genglow-backend.vercel.app/api/users/profile', {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then(res => {
+    axios.get(
+      'https://genglow-backend.vercel.app/api/users/profile',
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
+    .then(res => {
       setProfile(res.data);
       setName(res.data.name);
       setLoading(false);
-    }).catch(() => {
-      setAlertType('error');
-      setAlertMessage('Failed to load profile');
+    })
+    .catch(() => {
+      showAlert('error', 'Failed to load profile');
+      setLoading(false);
     });
   }, []);
 
@@ -50,6 +57,7 @@ const UserProfile = () => {
           }
         }
       );
+
       showAlert('success', 'Profile updated successfully');
     } catch {
       showAlert('error', 'Failed to update profile');
@@ -57,8 +65,6 @@ const UserProfile = () => {
   };
 
   const handleDelete = async () => {
-    if (!window.confirm('Are you sure? This action cannot be undone.')) return;
-
     try {
       await axios.delete(
         'https://genglow-backend.vercel.app/api/users/profile',
@@ -66,6 +72,7 @@ const UserProfile = () => {
       );
 
       showAlert('success', 'Account deleted successfully');
+
       setTimeout(() => {
         localStorage.clear();
         window.location.href = '/home';
@@ -79,11 +86,19 @@ const UserProfile = () => {
     <div className="layout">
       <UserSidebar />
 
-      <main className="main-content">
-        {/* ✅ ALERT DISPLAY */}
-        {alertType && (
-          <Alerts type={alertType} message={alertMessage} />
-        )}
+      <main className="main-content user-profile">
+        {/* ALERTS */}
+        {alertType && <Alerts type={alertType} message={alertMessage} />}
+
+        {/* CONFIRM DELETE MODAL */}
+        <ConfirmModal
+          show={confirmDelete}
+          message="Are you sure? This action cannot be undone."
+          confirmText="Yes, Delete Account"
+          cancelText="Cancel"
+          onCancel={() => setConfirmDelete(false)}
+          onConfirm={handleDelete}
+        />
 
         {loading ? (
           <div className="loading-state">Loading profile...</div>
@@ -92,30 +107,30 @@ const UserProfile = () => {
             <h2 className="page-title">User Profile</h2>
 
             <div className="card">
-  <h3 className="card-title">Profile Information</h3>
+              <h3 className="card-title">Profile Information</h3>
 
-  <div className="profile-row">
-    <span>Name</span>
-    <span>{profile.name}</span>
-  </div>
+              <div className="profile-row">
+                <span>Name</span>
+                <span>{profile.name}</span>
+              </div>
 
-  <div className="profile-row">
-    <span>Email</span>
-    <span>{profile.email}</span>
-  </div>
+              <div className="profile-row">
+                <span>Email</span>
+                <span>{profile.email}</span>
+              </div>
 
-  <div className="profile-row">
-    <span>Email Verified</span>
-    <span>{profile.isVerified ? 'Yes' : 'No'}</span>
-  </div>
+              <div className="profile-row">
+                <span>Email Verified</span>
+                <span>{profile.isVerified ? 'Yes' : 'No'}</span>
+              </div>
 
-  <div className="profile-row">
-    <span>Member Since</span>
-    <span>{new Date(profile.createdAt).toDateString()}</span>
-  </div>
-</div>
+              <div className="profile-row">
+                <span>Member Since</span>
+                <span>{new Date(profile.createdAt).toDateString()}</span>
+              </div>
+            </div>
 
-
+            {/* EDIT PROFILE */}
             <div className="card">
               <h3 className="card-title">Edit Profile</h3>
 
@@ -131,9 +146,14 @@ const UserProfile = () => {
               </button>
             </div>
 
+            {/* DANGER ZONE */}
             <div className="card danger">
               <h3 className="card-title danger-text">Danger Zone</h3>
-              <button className="danger-btn" onClick={handleDelete}>
+
+              <button
+                className="danger-btn"
+                onClick={() => setConfirmDelete(true)}
+              >
                 Delete Account
               </button>
             </div>

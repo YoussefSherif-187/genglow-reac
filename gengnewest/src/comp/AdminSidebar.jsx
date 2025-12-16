@@ -13,7 +13,9 @@ const AdminSidebar = () => {
     '/admin/orders': 'All Orders',
     '/admin/payments': 'All Payments',
     '/admin/samples': 'All Sample Requests',
+    '/admin/allexams': 'All Exam Results',    
     '/admin/quizzes': 'All Quiz Results',
+    '/admin/supplier': 'Supplier Management',    
     '/admin/shipping': 'Shipping Partner Management',
   };
 
@@ -42,8 +44,14 @@ const AdminSidebar = () => {
         <a href="/admin/samples" className="sidebar-link">
           All Sample Requests
         </a>
+        <a href="/admin/allexams" className="sidebar-link">
+          All Exam Results
+        </a>
         <a href="/admin/quizzes" className="sidebar-link">
           All Quiz Results
+        </a>
+        <a href="/admin/supplier" className="sidebar-link">
+          Supplier Management
         </a>
         <a href="/admin/shipping" className="sidebar-link">
           Shipping Partner Management

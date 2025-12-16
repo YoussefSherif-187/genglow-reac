@@ -30,6 +30,7 @@ import AllProducts from './admindashboard/AllProducts';
 import AllOrders from './admindashboard/AllOrders';
 import AllPayments from './admindashboard/AllPayments';
 import AllSampleRequests from './admindashboard/AllSampleRequests';
+import AllExams from './admindashboard/AllExams';
 import AllQuizResults from './admindashboard/AllQuizResults';
 import ShippingPartnerManagement from './admindashboard/ShippingPartnerManagement';
 import PharmacistQuizResults from './pharmacistdashboard/PharmacistQuizResults';
@@ -38,6 +39,7 @@ import ExaminationBooking from './pharmacistdashboard/ExaminationBooking';
 import AddProducts from './pharmacistdashboard/AddProducts';
 import Samples from "./userdashboard/Samples";
 import Exams from "./userdashboard/Exams";
+import SupplierManagement from "./admindashboard/SupplierManagement";
 
 export function App() {
   return (
@@ -86,7 +88,9 @@ export function App() {
         <Route path="/admin/orders" element={<Privateroutes allowedRoles={['admin']}><AllOrders /></Privateroutes>} />
         <Route path="/admin/payments" element={<Privateroutes allowedRoles={['admin']}><AllPayments /></Privateroutes>} />
         <Route path="/admin/samples" element={<Privateroutes allowedRoles={['admin']}><AllSampleRequests /></Privateroutes>} />
+        <Route path="/admin/allexams" element={<Privateroutes allowedRoles={['admin']}><AllExams /></Privateroutes>} />        
         <Route path="/admin/quizzes" element={<Privateroutes allowedRoles={['admin']}><AllQuizResults /></Privateroutes>} />
+        <Route path="/admin/supplier" element={<Privateroutes allowedRoles={['admin']}><SupplierManagement/></Privateroutes>} />        
         <Route path="/admin/shipping" element={<Privateroutes allowedRoles={['admin']}><ShippingPartnerManagement /></Privateroutes>} />
   
 
