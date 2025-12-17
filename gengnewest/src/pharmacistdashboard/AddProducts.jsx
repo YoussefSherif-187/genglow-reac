@@ -196,8 +196,25 @@ const AddProducts = () => {
                   value={createForm.supplier}
                   onChange={e => setCreateForm({ ...createForm, supplier: e.target.value })} />
 
-                <input type="file" accept="image/*"
-                  onChange={e => setCreateForm({ ...createForm, image: e.target.files[0] })} />
+                 <div className="file-upload">
+  <input
+    type="file"
+    id="supplier-image"
+    accept="image/*"
+    hidden
+    onChange={(e) =>
+      setCreateForm({ ...createForm, image: e.target.files[0] })
+    }
+  />
+
+  <label htmlFor="supplier-image" className="file-upload-btn">
+    Choose Image
+  </label>
+
+  {createForm.image && (
+    <span className="file-name">{createForm.image.name}</span>
+  )}
+</div>
               </div>
 
               <button className="primary-btn" onClick={handleCreateProduct}>
@@ -252,26 +269,29 @@ const AddProducts = () => {
                       <td>${p.price}</td>
                       <td>{p.stock}</td>
                       <td>
-                        <button
-                          className="secondary-btn"
-                          onClick={() => {
-                            setEditProduct(p);
-                            setUpdateForm({
-                              name: p.name,
-                              category: p.category,
-                              description: p.description,
-                              price: p.price
-                            });
-                          }}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="danger-btn"
-                          onClick={() => setDeleteId(p._id)}
-                        >
-                          Delete
-                        </button>
+                        <div className="btn-row">
+  <button
+    className="secondary-btn"
+    onClick={() => {
+      setEditProduct(p);
+      setUpdateForm({
+        name: p.name,
+        category: p.category,
+        description: p.description,
+        price: p.price
+      });
+    }}
+  >
+    Edit
+  </button>
+
+  <button
+    className="danger-btn"
+    onClick={() => setDeleteId(p._id)}
+  >
+    Delete
+  </button>
+</div>
                       </td>
                     </tr>
                   ))}

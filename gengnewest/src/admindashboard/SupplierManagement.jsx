@@ -161,6 +161,8 @@ const SupplierManagement = () => {
         <div className="card">
           <h3 className="card-title">Create New Supplier</h3>
 
+          
+
           <input
             className="form-input"
             placeholder="Name"
@@ -268,6 +270,11 @@ const SupplierManagement = () => {
           suppliers.map((supplier) => (
             <div className="card" key={supplier._id}>
               <h3 className="card-title">{supplier.name}</h3>
+
+               <div className="supplier-row">
+      <span>ID</span>
+      <span className="supplier-id">{supplier._id}</span>
+    </div>
 
               <div className="supplier-row">
                 <span>Email</span>
