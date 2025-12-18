@@ -50,16 +50,16 @@ const Navbar = () => {
 
       {/* Navigation Links */}
       <nav className="bar">
-  <NavLink to="/shop">Shop</NavLink>
-  <NavLink to="/aboutus">About GenGlow</NavLink>
-  <NavLink to="/requestsample">Try a Sample</NavLink>
-  <NavLink to="/bookexam">Book an Examination</NavLink>
+  <NavLink to="/shop" onClick={() => window.scrollTo(0, 0)}>Shop</NavLink>
+  <NavLink to="/aboutus" onClick={() => window.scrollTo(0, 0)}>About GenGlow</NavLink>
+  <NavLink to="/requestsample" onClick={() => window.scrollTo(0, 0)}>Try a Sample</NavLink>
+  <NavLink to="/bookexam" onClick={() => window.scrollTo(0, 0)}>Book an Examination</NavLink>
 </nav>
 
       {/* Right Section */}
       <div className="nav-right">
       <div className="quizbtn">
-  <NavLink to="/genquiz" className="quiz-outline-btn">
+  <NavLink to="/genquiz" className="quiz-outline-btn" onClick={() => window.scrollTo(0, 0)}>
     Genetic Quiz
   </NavLink>
 </div>

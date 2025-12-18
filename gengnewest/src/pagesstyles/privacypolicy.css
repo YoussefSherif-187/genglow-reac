@@ -1,5 +1,4 @@
 /* Basic Reset and Global Styles */
-* { box-sizing: border-box; margin: 0; padding: 0; }
 .container privacy-content body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; background-color: #f8f8f8; color: #333; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 

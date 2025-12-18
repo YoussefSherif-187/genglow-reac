@@ -14,6 +14,10 @@ const Signup = () => {
   const [password, setPassword] = useState("");
 
   const SignupHanlder = async () => {
+     if (password.length < 6) {
+    setErrorMessage("Password must be at least 6 characters long.");
+    return;
+  }
     await axios
       .post("https://genglow-backend.vercel.app/api/auth/register", {
         name: name,
@@ -86,15 +90,17 @@ const Signup = () => {
               <label for="password-input">
                 <img src={keypic} alt="" height="24" viewBox="0 -960 960 960" width="24"/>
               </label>
-              <input
-                type="password"
-                name="password"
-                onChange={e => {
-                  setPassword(e.target.value);
-                }}
-                id="password-input"
-                placeholder="Password"
-              />
+             <input
+  type="password"
+  name="password"
+  minLength={6}
+  onChange={e => {
+    setPassword(e.target.value);
+  }}
+  id="password-input"
+  placeholder="Password"
+/>
+
             </div>
           </form>
           <a href="signin">Already have an account?</a>

@@ -1,39 +1,53 @@
-import React from 'react'
-import "../pagesstyles/contact.css"
+import React from "react";
+import "../pagesstyles/contact.css";
 
-const contact = () => {
+const Contact = () => {
   return (
-    <div>
-      <div class="contactbody">
-  <section class="contact">
-    <h2>Contact Us</h2>
-    <p>We’d love to hear from you! Whether it’s feedback, questions, or suggestions — just drop us a message.</p>
+    <div className="contact-con">
+      <div className="contact-page">
+        <h1 className="contact-title">Contact us</h1>
 
-    <form>
-    <label for="Yourname"> Full Name</label>
-      <input type="text" id="name" name="name" placeholder="Your name"/>
+        <div className="contact-section">
+          <h4>WE’RE HERE FOR YOU. SAY HI.</h4>
+          <p>Chat with us</p>
+          <p>
+            Text us at <strong>01234567890</strong>
+          </p>
+        </div>
 
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="Your email"/>
+        <hr />
 
-      <label for="message">Message</label>
-      <textarea id="message" name="message" rows="5" placeholder="Write your message here..."></textarea>
+        <div className="contact-section">
+          <h4>LET'S CONNECT</h4>
+          <p>
+            For press inquiries or partnerships, please email{" "} <br/>
+            <a href="mailto:support@genglow.com">support@genglow.com</a>.
+          </p>
+        </div>
 
-      <button type="submit" class="conbutn">Send Message</button>
-    </form>
-  </section>
+        <hr />
 
-  <section class="contact-info">
-    <h3>Other Ways to Reach Us</h3>
-    <p>Email: support@genglow.com</p>
-    <p>Phone: +20 123 456 7890</p>
-    <p>Address: Alexandria, Egypt</p>
-    <p>Follow us: <a href="#">Instagram</a> | <a href="#">Facebook</a></p>
-  </section>
+        <div className="contact-section">
+          <h4>OFFICE IN ALEXANDRIA</h4>
+          <p>GenGlow</p>
+          <p>Alexandria, Egypt</p>
+        </div>
 
-</div>
+        <hr />
+
+        <div className="contact-section">
+          <h4>FOLLOW US</h4>
+          <a
+            href="https://www.facebook.com/p/GenGlow-61575790294421/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Facebook
+          </a>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default contact
+export default Contact;

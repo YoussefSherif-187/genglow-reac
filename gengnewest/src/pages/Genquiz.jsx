@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import "../pagesstyles/genquiz.css"
 import axios from "axios"
 import Alerts from "../comp/Alerts" // ✅ standard import
@@ -79,13 +79,8 @@ const Genquiz = () => {
     }
   }
 
-  const navigateNext = () => {
-    if (currentSectionIndex < quizQuestions.length - 1) {
-      setCurrentSectionIndex(prev => prev + 1)
-    } else {
-      submitQuiz()
-    }
-  }
+
+
 
   const submitQuiz = async () => {
     try {
@@ -165,6 +160,42 @@ const Genquiz = () => {
     }
   }
 
+  const isCurrentSectionAnswered = () => {
+  return currentSection.questions.every(q => {
+    const answer = userResponses[q.id]
+
+    if (q.type === "single") {
+      return !!answer
+    }
+
+    if (q.type === "multiple") {
+      return Array.isArray(answer) && answer.length > 0
+    }
+
+    return false
+  })
+}
+
+
+useEffect(() => {
+  if (currentSectionIndex > 0 && !quizCompleted) {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
+}, [currentSectionIndex, quizCompleted])
+
+const navigateNext = () => {
+  if (currentSectionIndex < quizQuestions.length - 1) {
+    setCurrentSectionIndex(prev => prev + 1)
+  } else {
+    submitQuiz()
+  }
+}
+
+
+
   const currentSection = quizQuestions[currentSectionIndex]
 
   return (
@@ -218,8 +249,11 @@ const Genquiz = () => {
 
                   <span>{currentSectionIndex + 1} / {quizQuestions.length}</span>
 
-                  <button className="btn btn-primary" disabled={loading} onClick={navigateNext}>
-                    {loading ? "Submitting..." : currentSectionIndex === quizQuestions.length - 1 ? "Submit Results" : "Next"}
+<button
+  className="btn btn-primary"
+  disabled={loading || !isCurrentSectionAnswered()}
+  onClick={navigateNext}
+>                    {loading ? "Submitting..." : currentSectionIndex === quizQuestions.length - 1 ? "Submit Results" : "Next"}
                   </button>
                 </div>
 
