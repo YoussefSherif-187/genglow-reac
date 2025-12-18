@@ -176,89 +176,102 @@ const ShippingPartnerManagement = () => {
           </button>
         </div>
 
-        {/* UPDATE */}
-        {editingPartner && (
-          <div className="card">
-            <h3 className="card-title">Update Shipping Partner</h3>
+        
 
-            <input
-              className="form-input"
-              value={editingPartner.name}
-              onChange={(e) =>
-                setEditingPartner({ ...editingPartner, name: e.target.value })
-              }
-            />
+      {loading ? (
+  <div className="loading-state">Loading partners...</div>
+) : partners.length === 0 ? (
+  <div className="empty-state">No shipping partners found</div>
+) : (
+  partners.map((partner) => (
+    <div key={partner._id}>
+      {/* PARTNER CARD */}
+      <div className="card">
+        <strong>{partner.name}</strong>
 
-            <input
-              className="form-input"
-              value={editingPartner.phone}
-              onChange={(e) =>
-                setEditingPartner({ ...editingPartner, phone: e.target.value })
-              }
-            />
+        <div className="row">
+          <span>Phone</span>
+          <span>{partner.phone}</span>
+        </div>
 
-            <input
-              className="form-input"
-              value={editingPartner.address}
-              onChange={(e) =>
-                setEditingPartner({
-                  ...editingPartner,
-                  address: e.target.value,
-                })
-              }
-            />
+        <div className="row">
+          <span>Address</span>
+          <span>{partner.address}</span>
+        </div>
 
-            <div className="actions-row">
-              <button className="primary-btn" onClick={handleUpdate}>
-                Save Changes
-              </button>
-              <button
-                className="secondary-btn"
-                onClick={() => setEditingPartner(null)}
-              >
-                Cancel
-              </button>
-            </div>
+        <div className="actions-row">
+          <button
+            className="secondary-btn"
+            onClick={() => setEditingPartner({ ...partner })}
+          >
+            Edit
+          </button>
+
+          <button
+            className="danger-btn"
+            onClick={() => setConfirmDeleteId(partner._id)}
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+
+      {/* EDIT FORM — ONLY UNDER CLICKED PARTNER */}
+      {editingPartner?._id === partner._id && (
+        <div className="card" style={{ marginTop: "10px" }}>
+          <h3 className="card-title">Update Shipping Partner</h3>
+
+          <input
+            className="form-input"
+            value={editingPartner.name}
+            onChange={(e) =>
+              setEditingPartner({
+                ...editingPartner,
+                name: e.target.value,
+              })
+            }
+          />
+
+          <input
+            className="form-input"
+            value={editingPartner.phone}
+            onChange={(e) =>
+              setEditingPartner({
+                ...editingPartner,
+                phone: e.target.value,
+              })
+            }
+          />
+
+          <input
+            className="form-input"
+            value={editingPartner.address}
+            onChange={(e) =>
+              setEditingPartner({
+                ...editingPartner,
+                address: e.target.value,
+              })
+            }
+          />
+
+          <div className="actions-row">
+            <button className="primary-btn" onClick={handleUpdate}>
+              Save Changes
+            </button>
+
+            <button
+              className="secondary-btn"
+              onClick={() => setEditingPartner(null)}
+            >
+              Cancel
+            </button>
           </div>
-        )}
+        </div>
+      )}
+    </div>
+  ))
+)}
 
-        {/* LIST */}
-        {loading ? (
-          <div className="loading-state">Loading partners...</div>
-        ) : partners.length === 0 ? (
-          <div className="empty-state">No shipping partners found</div>
-        ) : (
-          partners.map((partner) => (
-            <div className="card" key={partner._id}>
-              <strong>{partner.name}</strong>
-
-              <div className="row">
-                <span>Phone</span>
-                <span>{partner.phone}</span>
-              </div>
-
-              <div className="row">
-                <span>Address</span>
-                <span>{partner.address}</span>
-              </div>
-
-              <div className="actions-row">
-                <button
-                  className="secondary-btn"
-                  onClick={() => setEditingPartner(partner)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="danger-btn"
-                  onClick={() => setConfirmDeleteId(partner._id)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))
-        )}
       </main>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import "../pagesstyles/bookexam.css"
 import axios from "axios"
+import Alerts from "../comp/Alerts" // ✅ standard import
 
 const Bookexam = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const Bookexam = () => {
 
   const [loading, setLoading] = useState(false)
   const [activeFaq, setActiveFaq] = useState(null)
+  const [alert, setAlert] = useState({ type: "", message: "" })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -34,7 +36,10 @@ const Bookexam = () => {
         }
       )
 
-      alert("Examination booked successfully!")
+      setAlert({
+        type: "success",
+        message: "Examination booked successfully!"
+      })
 
       setFormData({
         preferredDate: '',
@@ -42,10 +47,12 @@ const Bookexam = () => {
       })
 
     } catch (err) {
-      alert(
-        err.response?.data?.message ||
-        "Failed to book examination. Please try again."
-      )
+      setAlert({
+        type: "error",
+        message:
+          err.response?.data?.message ||
+          "Failed to book examination. Please try again."
+      })
     } finally {
       setLoading(false)
     }
@@ -124,6 +131,13 @@ const Bookexam = () => {
                 >
                   {loading ? "Booking..." : "Confirm Booking"}
                 </button>
+
+                <br />
+
+                {/* ✅ Alert under button (standard) */}
+                {alert.message && (
+                  <Alerts type={alert.type} message={alert.message} />
+                )}
               </div>
             </form>
           </div>

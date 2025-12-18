@@ -91,92 +91,100 @@ const PharmacistExaminations = () => {
 
         <h2 className="page-title">Examination Bookings</h2>
 
-        {/* ================= UPDATE ================= */}
-        {editingExam && (
-          <div className="card">
-            <h3 className="card-title">
-              Update Examination — {editingExam.customer?.name}
-            </h3>
+       
 
-            <select
-              className="form-input"
-              value={updateForm.status}
-              onChange={(e) =>
-                setUpdateForm({ ...updateForm, status: e.target.value })
-              }
+       {loading ? (
+  <div className="loading-state">Loading examinations...</div>
+) : exams.length === 0 ? (
+  <div className="empty-state">No examination bookings found</div>
+) : (
+  exams.map((exam) => (
+    <div key={exam._id}>
+      {/* EXAM CARD */}
+      <div className="card">
+        <h3 className="card-title">Examination</h3>
+
+        <div className="row">
+          <span>Customer</span>
+          <span>
+            {exam.customer?.name} ({exam.customer?.email})
+          </span>
+        </div>
+
+        <div className="row">
+          <span>Date</span>
+          <span>{new Date(exam.date).toLocaleDateString()}</span>
+        </div>
+
+        <div className="row">
+          <span>Status</span>
+          <span>{exam.status}</span>
+        </div>
+
+        <div className="row">
+          <span>Notes</span>
+          <span>{exam.notes || "—"}</span>
+        </div>
+
+        <br />
+
+        <div className="actions-row">
+          <button
+            className="secondary-btn"
+            onClick={() => startUpdate(exam)}
+          >
+            Update
+          </button>
+        </div>
+      </div>
+
+      {/* EDIT FORM — ONLY UNDER CLICKED EXAM */}
+      {editingExam?._id === exam._id && (
+        <div className="card" style={{ marginTop: "10px" }}>
+          <h3 className="card-title">
+            Update Examination — {editingExam.customer?.name}
+          </h3>
+
+          <select
+            className="form-input"
+            value={updateForm.status}
+            onChange={(e) =>
+              setUpdateForm({ ...updateForm, status: e.target.value })
+            }
+          >
+            <option value="">Select Status</option>
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+
+          <textarea
+            className="form-input"
+            placeholder="Notes"
+            value={updateForm.notes}
+            onChange={(e) =>
+              setUpdateForm({ ...updateForm, notes: e.target.value })
+            }
+          />
+
+          <div className="actions-row">
+            <button className="primary-btn" onClick={updateExamination}>
+              Save Changes
+            </button>
+
+            <button
+              className="secondary-btn"
+              onClick={() => setEditingExam(null)}
             >
-              <option value="">Select Status</option>
-              <option value="Pending">Pending</option>
-              <option value="Completed">Completed</option>
-              <option value="Cancelled">Cancelled</option>
-            </select>
-
-            <textarea
-              className="form-input"
-              placeholder="Notes"
-              value={updateForm.notes}
-              onChange={(e) =>
-                setUpdateForm({ ...updateForm, notes: e.target.value })
-              }
-            />
-
-            <div className="actions-row">
-              <button className="primary-btn" onClick={updateExamination}>
-                Save Changes
-              </button>
-              <button
-                className="secondary-btn"
-                onClick={() => setEditingExam(null)}
-              >
-                Cancel
-              </button>
-            </div>
+              Cancel
+            </button>
           </div>
-        )}
+        </div>
+      )}
+    </div>
+  ))
+)}
 
-        {/* ================= LIST ================= */}
-        {loading ? (
-          <div className="loading-state">Loading examinations...</div>
-        ) : exams.length === 0 ? (
-          <div className="empty-state">No examination bookings found</div>
-        ) : (
-          exams.map((exam) => (
-            <div className="card" key={exam._id}>
-              <h3 className="card-title">Examination</h3>
-
-              <div className="row">
-                <span>Customer</span>
-                <span>
-                  {exam.customer?.name} ({exam.customer?.email})
-                </span>
-              </div>
-
-              <div className="row">
-                <span>Date</span>
-                <span>{new Date(exam.date).toLocaleDateString()}</span>
-              </div>
-
-              <div className="row">
-                <span>Status</span>
-                <span>{exam.status}</span>
-              </div>
-
-              <div className="row">
-                <span>Notes</span>
-                <span>{exam.notes || "—"}</span>
-              </div>
-<br/>
-              <div className="actions-row">
-                <button
-                  className="secondary-btn"
-                  onClick={() => startUpdate(exam)}
-                >
-                  Update
-                </button>
-              </div>
-            </div>
-          ))
-        )}
       </main>
     </div>
   );

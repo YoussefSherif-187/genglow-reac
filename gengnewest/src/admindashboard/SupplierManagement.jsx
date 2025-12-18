@@ -204,110 +204,117 @@ const SupplierManagement = () => {
           </button>
         </div>
 
-        {/* UPDATE SUPPLIER */}
-        {editingSupplier && (
-          <div className="card">
-            <h3 className="card-title">
-              Update Supplier — {updateForm.name}
-            </h3>
+      
 
-            <input
-              className="form-input"
-              placeholder="Name"
-              value={updateForm.name}
-              onChange={(e) =>
-                setUpdateForm({ ...updateForm, name: e.target.value })
-              }
-            />
+       {loading ? (
+  <div className="loading-state">Loading suppliers...</div>
+) : suppliers.length === 0 ? (
+  <div className="empty-state">No suppliers found</div>
+) : (
+  suppliers.map((supplier) => (
+    <div key={supplier._id}>
+      {/* SUPPLIER CARD */}
+      <div className="card">
+        <h3 className="card-title">{supplier.name}</h3>
 
-            <input
-              className="form-input"
-              placeholder="Email"
-              value={updateForm.email}
-              onChange={(e) =>
-                setUpdateForm({ ...updateForm, email: e.target.value })
-              }
-            />
+        <div className="supplier-row">
+          <span>ID</span>
+          <span className="supplier-id">{supplier._id}</span>
+        </div>
 
-            <input
-              className="form-input"
-              placeholder="Phone"
-              value={updateForm.phone}
-              onChange={(e) =>
-                setUpdateForm({ ...updateForm, phone: e.target.value })
-              }
-            />
+        <div className="supplier-row">
+          <span>Email</span>
+          <span>{supplier.email}</span>
+        </div>
 
-            <input
-              className="form-input"
-              placeholder="Address"
-              value={updateForm.address}
-              onChange={(e) =>
-                setUpdateForm({ ...updateForm, address: e.target.value })
-              }
-            />
+        <div className="supplier-row">
+          <span>Phone</span>
+          <span>{supplier.phone}</span>
+        </div>
 
-            <div className="btn-row">
-              <button className="primary-btn" onClick={updateSupplier}>
-                Update Supplier
-              </button>
-              <button
-                className="secondary-btn"
-                onClick={() => setEditingSupplier(null)}
-              >
-                Cancel
-              </button>
-            </div>
+        <div className="supplier-row">
+          <span>Address</span>
+          <span>{supplier.address}</span>
+        </div>
+
+        <div className="btn-row">
+          <button
+            className="secondary-btn"
+            onClick={() => startEdit(supplier)}
+          >
+            Edit
+          </button>
+
+          <button
+            className="danger-btn"
+            onClick={() => setConfirmDeleteId(supplier._id)}
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+
+      {/* EDIT FORM — ONLY UNDER CLICKED SUPPLIER */}
+      {editingSupplier?._id === supplier._id && (
+        <div className="card" style={{ marginTop: "10px" }}>
+          <h3 className="card-title">
+            Update Supplier — {updateForm.name}
+          </h3>
+
+          <input
+            className="form-input"
+            placeholder="Name"
+            value={updateForm.name}
+            onChange={(e) =>
+              setUpdateForm({ ...updateForm, name: e.target.value })
+            }
+          />
+
+          <input
+            className="form-input"
+            placeholder="Email"
+            value={updateForm.email}
+            onChange={(e) =>
+              setUpdateForm({ ...updateForm, email: e.target.value })
+            }
+          />
+
+          <input
+            className="form-input"
+            placeholder="Phone"
+            value={updateForm.phone}
+            onChange={(e) =>
+              setUpdateForm({ ...updateForm, phone: e.target.value })
+            }
+          />
+
+          <input
+            className="form-input"
+            placeholder="Address"
+            value={updateForm.address}
+            onChange={(e) =>
+              setUpdateForm({ ...updateForm, address: e.target.value })
+            }
+          />
+
+          <div className="btn-row">
+            <button className="primary-btn" onClick={updateSupplier}>
+              Update Supplier
+            </button>
+
+            <button
+              className="secondary-btn"
+              onClick={() => setEditingSupplier(null)}
+            >
+              Cancel
+            </button>
           </div>
-        )}
-
-        {/* SUPPLIER LIST */}
-        {loading ? (
-          <div className="loading-state">Loading suppliers...</div>
-        ) : suppliers.length === 0 ? (
-          <div className="empty-state">No suppliers found</div>
-        ) : (
-          suppliers.map((supplier) => (
-            <div className="card" key={supplier._id}>
-              <h3 className="card-title">{supplier.name}</h3>
-
-               <div className="supplier-row">
-      <span>ID</span>
-      <span className="supplier-id">{supplier._id}</span>
+        </div>
+      )}
     </div>
+  ))
+)}
 
-              <div className="supplier-row">
-                <span>Email</span>
-                <span>{supplier.email}</span>
-              </div>
-
-              <div className="supplier-row">
-                <span>Phone</span>
-                <span>{supplier.phone}</span>
-              </div>
-
-              <div className="supplier-row">
-                <span>Address</span>
-                <span>{supplier.address}</span>
-              </div>
-
-              <div className="btn-row">
-                <button
-                  className="secondary-btn"
-                  onClick={() => startEdit(supplier)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="danger-btn"
-                  onClick={() => setConfirmDeleteId(supplier._id)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))
-        )}
       </main>
     </div>
   );

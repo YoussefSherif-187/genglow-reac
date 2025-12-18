@@ -62,15 +62,7 @@
   color: #444;
 }
 
-.danger-btn {
-  background: #b91c1c;
-  max-width: max-content;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-}
+
 .loading-state {
   font-size: 18px;
   font-weight: 500;

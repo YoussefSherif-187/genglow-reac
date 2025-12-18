@@ -97,100 +97,105 @@ const AllSampleRequests = () => {
           <>
             <h2 className="page-title">All Sample Requests</h2>
 
-            {samples.map(sample => (
-              <div className="card" key={sample._id}>
-                <h3 className="card-title">Sample Request</h3>
+           {samples.map(sample => (
+  <div key={sample._id}>
+    {/* SAMPLE CARD */}
+    <div className="card">
+      <h3 className="card-title">Sample Request</h3>
 
-                <div className="sample-row">
-                  <span>Request ID</span>
-                  <span>{sample._id}</span>
-                </div>
+      <div className="sample-row">
+        <span>Request ID</span>
+        <span>{sample._id}</span>
+      </div>
 
-                <div className="sample-row">
-                  <span>User</span>
-                  <span>
-                    {sample.user
-                      ? `${sample.user.name} (${sample.user.email})`
-                      : "Guest"}
-                  </span>
-                </div>
+      <div className="sample-row">
+        <span>User</span>
+        <span>
+          {sample.user
+            ? `${sample.user.name} (${sample.user.email})`
+            : "Guest"}
+        </span>
+      </div>
 
-                <div className="sample-row">
-                  <span>Product</span>
-                  <span>{sample.product?.name}</span>
-                </div>
+      <div className="sample-row">
+        <span>Product</span>
+        <span>{sample.product?.name}</span>
+      </div>
 
-                <div className="sample-row">
-                  <span>Price</span>
-                  <span>${sample.product?.price}</span>
-                </div>
+      <div className="sample-row">
+        <span>Price</span>
+        <span>${sample.product?.price}</span>
+      </div>
 
-                <div className="sample-row">
-                  <span>Status</span>
-                  <span
-                    className={`status ${sample.status?.toLowerCase()}`}
-                  >
-                    {sample.status}
-                  </span>
-                </div>
+      <div className="sample-row">
+        <span>Status</span>
+        <span className={`status ${sample.status?.toLowerCase()}`}>
+          {sample.status}
+        </span>
+      </div>
 
-                <div className="sample-row">
-                  <span>Requested On</span>
-                  <span>
-                    {new Date(sample.createdAt).toDateString()}
-                  </span>
-                </div>
+      <div className="sample-row">
+        <span>Requested On</span>
+        <span>{new Date(sample.createdAt).toDateString()}</span>
+      </div>
 
-                <div className="admin-actions">
-                  <button
-                    className="secondary-btn"
-                    onClick={() => {
-                      setEditSample(sample);
-                      setNewStatus(sample.status);
-                    }}
-                  >
-                    Update Status
-                  </button>
-                </div>
-              </div>
-            ))}
+      <div className="admin-actions">
+        <button
+          className="secondary-btn"
+          onClick={() => {
+            setEditSample(sample);
+            setNewStatus(sample.status);
+          }}
+        >
+          Update Status
+        </button>
+      </div>
+    </div>
+
+    {/* UPDATE PANEL — ONLY UNDER CLICKED SAMPLE */}
+    {editSample?._id === sample._id && (
+      <div className="card danger" style={{ marginTop: "10px" }}>
+        <h3 className="card-title">Update Sample Status</h3>
+
+        <label className="form-label">Status</label>
+        <select
+          className="form-input"
+          value={newStatus}
+          onChange={e => setNewStatus(e.target.value)}
+        >
+          <option value="">Select status</option>
+          <option value="Approved">Approved</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Shipped">Shipped</option>
+        </select>
+
+        <div style={{ display: "flex", gap: "10px" }}>
+          <button
+            className="primary-btn"
+            onClick={() => setConfirmUpdate(true)}
+          >
+            Save Changes
+          </button>
+
+          <button
+            className="secondary-btn"
+            onClick={() => {
+              setEditSample(null);
+              setConfirmUpdate(false);
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    )}
+  </div>
+))}
+
           </>
         )}
 
-        {/* UPDATE PANEL */}
-        {editSample && (
-          <div className="card danger">
-            <h3 className="card-title">Update Sample Status</h3>
-
-            <label className="form-label">Status</label>
-            <select
-              className="form-input"
-              value={newStatus}
-              onChange={e => setNewStatus(e.target.value)}
-            >
-              <option value="">Select status</option>
-              <option value="Approved">Approved</option>
-              <option value="Cancelled">Cancelled</option>
-              <option value="Shipped">Shipped</option>
-              
-            </select>
-
-            <div style={{ display: "flex", gap: "10px" }}>
-              <button
-                className="primary-btn"
-                onClick={() => setConfirmUpdate(true)}
-              >
-                Save Changes
-              </button>
-              <button
-                className="secondary-btn"
-                onClick={() => setEditSample(null)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        )}
+      
       </main>
     </div>
   );

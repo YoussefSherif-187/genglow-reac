@@ -3,7 +3,7 @@ import axios from "axios";
 
 import AdminSidebar from "../comp/AdminSidebar";
 import Alerts from "../comp/Alerts";
-import ConfirmModal from "../comp/ConfirmModal";
+import ConfirmModal2 from "../comp/ConfirmModal2";
 
 import "../pagesstyles/dashboard.css";
 import "../adminstyles/allpayments.css";
@@ -71,7 +71,7 @@ const AllPayments = () => {
       <main className="main-content all-payments">
         {alertType && <Alerts type={alertType} message={alertMessage} />}
 
-        <ConfirmModal
+        <ConfirmModal2
           show={!!confirmPaymentId}
           message="Mark this payment as completed?"
           confirmText="Yes, Complete Payment"

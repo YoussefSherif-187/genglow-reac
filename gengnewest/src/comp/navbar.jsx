@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import userpic from '../assets/1077114.png';
 import logo from '../assets/genlogo.png';
 import "../app.css";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
@@ -39,58 +40,54 @@ const Navbar = () => {
     return "/user";
   };
 
-  return (
-    <div className="nav">
+ return (
+  <header className="nav">
+    <div className="nav-inner">
       {/* Logo */}
-      <a href="/home">
-        <div className="logo">
-          <img src={logo} width="130" height="51" alt="GenGlow Logo" />
-        </div>
+      <a href="/home" className="logo">
+        <img src={logo} alt="GenGlow Logo" />
       </a>
 
       {/* Navigation Links */}
-      <div className="bar">
-        <ul>
-          <li><a href="/shop">SHOP</a></li>
-          <li><a href="/aboutus">ABOUT GENGLOW</a></li>
-          <li><a href="/requestsample">TRY A SAMPLE</a></li>
-          <li><a href="/bookexam">BOOK AN EXAMINATION</a></li>
-        </ul>
-      </div>
+      <nav className="bar">
+  <NavLink to="/shop">Shop</NavLink>
+  <NavLink to="/aboutus">About GenGlow</NavLink>
+  <NavLink to="/requestsample">Try a Sample</NavLink>
+  <NavLink to="/bookexam">Book an Examination</NavLink>
+</nav>
 
-      {/* User Dropdown */}
-      <div className="user-dropdown">
-        <img src={userpic} alt="User Icon" className="user-icon" />
-        <div className="dropdown-content">
-          {!isLoggedIn ? (
-            <>
-              <a href="/signin">Sign In</a>
-              <a href="/signup">Sign Up</a>
-            </>
-          ) : (
-            <>
-              {/* ✅ Role-based dashboard */}
-              <a href={getDashboardPath()}>Dashboard</a>
+      {/* Right Section */}
+      <div className="nav-right">
+      <div className="quizbtn">
+  <NavLink to="/genquiz" className="quiz-outline-btn">
+    Genetic Quiz
+  </NavLink>
+</div>
 
-              <button
-                className="logout-btn"
-                onClick={handleLogout}
-              >
-                Log Out
-              </button>
-            </>
-          )}
+
+        <div className="user-dropdown">
+          <img src={userpic} alt="User Icon" className="user-icon" />
+          <div className="dropdown-content">
+            {!isLoggedIn ? (
+              <>
+                <a href="/signin">Sign In</a>
+                <a href="/signup">Sign Up</a>
+              </>
+            ) : (
+              <>
+                <a href={getDashboardPath()}>Dashboard</a>
+                <button className="logout-btn" onClick={handleLogout}>
+                  Log Out
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
-
-      {/* Genetic Quiz Button */}
-      <div className="quizbtn">
-        <a href="/genquiz">
-          <button className="butn">Genetic Quiz</button>
-        </a>
-      </div>
     </div>
-  );
+  </header>
+);
+
 };
 
 export default Navbar;

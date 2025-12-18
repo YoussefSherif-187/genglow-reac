@@ -42,7 +42,9 @@ const Privacypolicy = () => {
 <h3>6. Contact Us</h3>
 <p>If you have any questions about this Privacy Policy, please contact us:</p>
 <p>Email: <a href="mailto:privacy@genglow.com">privacy@genglow.com</a></p>
-<p>Address: [Your Project Business Address]</p>
+<p>Address: Alexandria, Egypt
+
+</p>
 </section>
 </main>
   )

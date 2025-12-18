@@ -3,7 +3,7 @@ import axios from "axios";
 
 import PharmacistSidebar from "../comp/PharmacistSidebar";
 import Alerts from "../comp/Alerts";
-import ConfirmModal from "../comp/ConfirmModal";
+import ConfirmModal2 from "../comp/ConfirmModal2";
 
 import "../pagesstyles/dashboard.css";
 
@@ -80,7 +80,7 @@ const PharmacistApprovedSamples = () => {
         {alertType && <Alerts type={alertType} message={alertMessage} />}
 
         {/* CONFIRM STATUS UPDATE */}
-        <ConfirmModal
+        <ConfirmModal2
           show={!!confirmUpdateId}
           message="Mark this sample request as shipped?"
           confirmText="Yes, Mark as Shipped"

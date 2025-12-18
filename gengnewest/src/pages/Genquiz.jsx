@@ -1,75 +1,31 @@
 import React, { useState } from 'react'
 import "../pagesstyles/genquiz.css"
 import axios from "axios"
+import Alerts from "../comp/Alerts" // ✅ standard import
 
 const quizQuestions = [
   {
     section: "Skin & Hair Profile",
     questions: [
-      {
-        id: "skinType",
-        question: "What is your skin type?",
-        type: "single",
-        options: ["Oily", "Dry", "Combination", "Sensitive", "Normal"],
-      },
-      {
-        id: "skinConcerns",
-        question: "Do you experience any of the following?",
-        type: "multiple",
-        options: ["Acne", "Pigmentation", "Wrinkles", "Redness", "None"],
-      },
-      {
-        id: "hairType",
-        question: "What is your hair type?",
-        type: "single",
-        options: ["Straight", "Wavy", "Curly", "Coily"],
-      },
-      {
-        id: "hairConcerns",
-        question: "What hair issues do you face?",
-        type: "multiple",
-        options: ["Hair fall", "Dandruff", "Frizz", "Split ends", "None"],
-      },
+      { id: "skinType", question: "What is your skin type?", type: "single", options: ["Oily", "Dry", "Combination", "Sensitive", "Normal"] },
+      { id: "skinConcerns", question: "Do you experience any of the following?", type: "multiple", options: ["Acne", "Pigmentation", "Wrinkles", "Redness", "None"] },
+      { id: "hairType", question: "What is your hair type?", type: "single", options: ["Straight", "Wavy", "Curly", "Coily"] },
+      { id: "hairConcerns", question: "What hair issues do you face?", type: "multiple", options: ["Hair fall", "Dandruff", "Frizz", "Split ends", "None"] },
     ],
   },
   {
     section: "Lifestyle & Environment",
     questions: [
-      {
-        id: "sleepHours",
-        question: "How many hours of sleep do you get on average?",
-        type: "single",
-        options: ["<5", "5-7", "7-9", ">9"],
-      },
-      {
-        id: "pollutionExposure",
-        question: "How often are you exposed to pollution/sunlight?",
-        type: "single",
-        options: ["Rarely", "Sometimes", "Daily"],
-      },
-      {
-        id: "diet",
-        question: "How is your diet?",
-        type: "single",
-        options: ["Balanced", "High in sugar", "Low in protein", "Vegan"],
-      },
+      { id: "sleepHours", question: "How many hours of sleep do you get on average?", type: "single", options: ["<5", "5-7", "7-9", ">9"] },
+      { id: "pollutionExposure", question: "How often are you exposed to pollution/sunlight?", type: "single", options: ["Rarely", "Sometimes", "Daily"] },
+      { id: "diet", question: "How is your diet?", type: "single", options: ["Balanced", "High in sugar", "Low in protein", "Vegan"] },
     ],
   },
   {
     section: "Genetic Traits (Family History)",
     questions: [
-      {
-        id: "familyHistory",
-        question: "Does anyone in your family have any of the following?",
-        type: "multiple",
-        options: ["Premature graying", "Sensitive skin", "Hair loss", "Eczema"],
-      },
-      {
-        id: "allergies",
-        question: "Do you have any known allergies to natural products?",
-        type: "multiple",
-        options: ["Herbs", "Oils", "Nuts", "None"],
-      },
+      { id: "familyHistory", question: "Does anyone in your family have any of the following?", type: "multiple", options: ["Premature graying", "Sensitive skin", "Hair loss", "Eczema"] },
+      { id: "allergies", question: "Do you have any known allergies to natural products?", type: "multiple", options: ["Herbs", "Oils", "Nuts", "None"] },
     ],
   },
   {
@@ -103,6 +59,8 @@ const Genquiz = () => {
   const [quizResultId, setQuizResultId] = useState(null)
   const [orderLoading, setOrderLoading] = useState(false)
 
+  const [alert, setAlert] = useState({ type: "", message: "" })
+
   const handleRadioChange = (id, value) => {
     setUserResponses({ ...userResponses, [id]: value })
   }
@@ -132,35 +90,22 @@ const Genquiz = () => {
   const submitQuiz = async () => {
     try {
       setLoading(true)
+      setAlert({ type: "", message: "" })
+
       const token = localStorage.getItem("token")
       const formBody = new URLSearchParams()
 
-      if (userResponses.skinType)
-        formBody.append("skinType", userResponses.skinType.toLowerCase())
-      if (userResponses.hairType)
-        formBody.append("hairType", userResponses.hairType.toLowerCase())
-      if (userResponses.sleepHours)
-        formBody.append("sleepHours", userResponses.sleepHours)
-      if (userResponses.pollutionExposure)
-        formBody.append("pollutionExposure", userResponses.pollutionExposure.toLowerCase())
-      if (userResponses.diet)
-        formBody.append("diet", userResponses.diet.toLowerCase())
+      if (userResponses.skinType) formBody.append("skinType", userResponses.skinType.toLowerCase())
+      if (userResponses.hairType) formBody.append("hairType", userResponses.hairType.toLowerCase())
+      if (userResponses.sleepHours) formBody.append("sleepHours", userResponses.sleepHours)
+      if (userResponses.pollutionExposure) formBody.append("pollutionExposure", userResponses.pollutionExposure.toLowerCase())
+      if (userResponses.diet) formBody.append("diet", userResponses.diet.toLowerCase())
 
-      userResponses.skinConcerns?.forEach(v =>
-        formBody.append("skinConcerns[]", v.toLowerCase())
-      )
-      userResponses.hairConcerns?.forEach(v =>
-        formBody.append("hairConcerns[]", v.toLowerCase())
-      )
-      userResponses.familyHistory?.forEach(v =>
-        formBody.append("familyHistory[]", v.toLowerCase())
-      )
-      userResponses.allergies?.forEach(v =>
-        formBody.append("allergies[]", v.toLowerCase())
-      )
-      userResponses.goals?.forEach(v =>
-        formBody.append("goals[]", v.toLowerCase())
-      )
+      userResponses.skinConcerns?.forEach(v => formBody.append("skinConcerns[]", v.toLowerCase()))
+      userResponses.hairConcerns?.forEach(v => formBody.append("hairConcerns[]", v.toLowerCase()))
+      userResponses.familyHistory?.forEach(v => formBody.append("familyHistory[]", v.toLowerCase()))
+      userResponses.allergies?.forEach(v => formBody.append("allergies[]", v.toLowerCase()))
+      userResponses.goals?.forEach(v => formBody.append("goals[]", v.toLowerCase()))
 
       const response = await axios.post(
         "https://genglow-backend.vercel.app/api/quizResults",
@@ -173,14 +118,20 @@ const Genquiz = () => {
         }
       )
 
-      setRecommendedProducts(
-        response.data.quizResult?.recommendedProducts || []
-      )
+      setRecommendedProducts(response.data.quizResult?.recommendedProducts || [])
       setQuizResultId(response.data.quizResult?._id)
       setQuizCompleted(true)
 
+      setAlert({
+        type: "success",
+        message: "Quiz submitted successfully! Here are your recommendations."
+      })
+
     } catch (err) {
-      alert("Failed to submit quiz.")
+      setAlert({
+        type: "error",
+        message: "Failed to submit quiz. Please try again."
+      })
     } finally {
       setLoading(false)
     }
@@ -189,22 +140,26 @@ const Genquiz = () => {
   const createOrderFromQuiz = async () => {
     try {
       setOrderLoading(true)
+      setAlert({ type: "", message: "" })
+
       const token = localStorage.getItem("token")
 
       await axios.post(
         `https://genglow-backend.vercel.app/api/quizResults/${quizResultId}/order`,
         {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       )
 
-      alert("Order created successfully!")
+      setAlert({
+        type: "success",
+        message: "Order created successfully!"
+      })
 
     } catch (err) {
-      alert("Failed to create order.")
+      setAlert({
+        type: "error",
+        message: "Failed to create order."
+      })
     } finally {
       setOrderLoading(false)
     }
@@ -260,11 +215,15 @@ const Genquiz = () => {
                   <button className="btn btn-secondary" disabled={currentSectionIndex === 0} onClick={navigatePrev}>
                     Previous
                   </button>
+
                   <span>{currentSectionIndex + 1} / {quizQuestions.length}</span>
+
                   <button className="btn btn-primary" disabled={loading} onClick={navigateNext}>
                     {loading ? "Submitting..." : currentSectionIndex === quizQuestions.length - 1 ? "Submit Results" : "Next"}
                   </button>
                 </div>
+
+               
               </>
             ) : (
               <div className="quiz-result">
@@ -286,6 +245,12 @@ const Genquiz = () => {
                 >
                   {orderLoading ? "Placing Order..." : "Place Order"}
                 </button>
+
+                <br />
+
+                {alert.message && (
+                  <Alerts type={alert.type} message={alert.message} />
+                )}
               </div>
             )}
           </div>
