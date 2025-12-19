@@ -2,8 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { CartContext } from "../cart/CartContext";
-
-import productImage from "../assets/products/prod1.png";
 import "../pagesstyles/shop.css";
 
 const Shop = () => {
@@ -19,6 +17,17 @@ const Shop = () => {
 
   const [category, setCategory] = useState("All");
   const [maxPrice, setMaxPrice] = useState("");
+
+  /* =====================
+     PRODUCT IMAGE HELPER
+  ===================== */
+  const getProductImage = (prodId) => {
+    try {
+      return require(`../assets/products/${prodId}.png`);
+    } catch (err) {
+      return require(`../assets/products/prod1.png`);
+    }
+  };
 
   /* =====================
      FETCH PRODUCTS
@@ -140,7 +149,7 @@ const Shop = () => {
         {currentProducts.map((product) => (
           <div className="product-card" key={product._id}>
             <img
-              src={productImage}
+              src={getProductImage(product._id)}
               alt={product.name}
               className="product-img"
             />
@@ -194,8 +203,6 @@ const Shop = () => {
           Next
         </button>
       </div>
-
-     
     </div>
   );
 };

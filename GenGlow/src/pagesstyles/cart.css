@@ -4,7 +4,7 @@
   right: 0;
   height: 100%;
   width: 0;
-  background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.6);
   overflow: hidden;
   transition: 0.3s;
   z-index: 200;
@@ -20,8 +20,8 @@
   top: 60px;
   width: 350px;
   height: 100%;
-  background: #387334;
-  color: white;
+  background: white;
+  color: black;
   padding: 20px;
   transition: 0.3s;
 }
@@ -43,7 +43,7 @@
   background: none;
   border: none;
   font-size: 26px;
-  color: #fff;
+  color: black;
   cursor: pointer;
 }
 
@@ -82,9 +82,9 @@
 .item-qty button {
   width: 25px;
   height: 25px;
-  background: #222;
+  background: black;
   color: white;
-  border: 1px solid #555;
+  border: 1px solid black;
   cursor: pointer;
 }
 
@@ -102,15 +102,15 @@
 
 .cart-note {
   font-size: 12px;
-  color: #ccc;
+  color: black;
   margin-bottom: 20px;
 }
 
 .checkout-btn {
   width: 100%;
   padding: 12px;
-  background: white;
-  color: black;
+  background: black;
+  color: white;
   border: none;
   font-weight: bold;
   cursor: pointer;

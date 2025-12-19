@@ -63,8 +63,7 @@ export function App() {
         <Route path="/privacypolicy" element={<Privacypolicy />} />
         <Route path="/product/:id" element={<Singleproduct />} />
         <Route path="/shop" element={<Shop />} />
-        <Route path="/checkout/:orderId" element={<Checkout />} />
-        <Route path="/success/:orderId" element={<Success />} />
+
 
 
         <Route path="/signup" element={<PublicOnlyRoute><Signup /></PublicOnlyRoute>} />
@@ -89,7 +88,8 @@ export function App() {
         <Route path="/user/reviews" element={<Privateroutes allowedRoles={['user']}><MyReviews /></Privateroutes>} />
         <Route path="/user/samples" element={<Privateroutes allowedRoles={['user']}><Samples/></Privateroutes>} />
         <Route path="/user/exams" element={<Privateroutes allowedRoles={['user']}><Exams/></Privateroutes>} />
-        
+        <Route path="/checkout/:orderId" element={<Privateroutes allowedRoles={['user']}><Checkout/></Privateroutes>} />
+        <Route path="/success/:orderId" element={<Privateroutes allowedRoles={['user']}><Success/></Privateroutes>} />
 
 
 

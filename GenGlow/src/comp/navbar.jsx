@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import userpic from '../assets/1077114.png';
 import logo from '../assets/genlogo.png';
+import navcart from '../assets/cart.png';
 import "../app.css";
 import { NavLink } from "react-router-dom";
+import { CartContext } from "../cart/CartContext";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const [role, setRole] = useState(localStorage.getItem("role"));
+  const { cart, setIsOpen } = useContext(CartContext);
 
   // Sync auth + role
   useEffect(() => {
@@ -16,7 +19,6 @@ const Navbar = () => {
     };
 
     window.addEventListener("storage", syncAuth);
-
     const interval = setInterval(syncAuth, 500);
 
     return () => {
@@ -40,54 +42,68 @@ const Navbar = () => {
     return "/user";
   };
 
- return (
-  <header className="nav">
-    <div className="nav-inner">
-      {/* Logo */}
-      <a href="/home" className="logo">
-        <img src={logo} alt="GenGlow Logo" />
-      </a>
+  // 🔐 Cart visibility rule
+  const showUserCart = isLoggedIn && role === "user";
 
-      {/* Navigation Links */}
-      <nav className="bar">
-  <NavLink to="/shop" onClick={() => window.scrollTo(0, 0)}>Shop</NavLink>
-  <NavLink to="/aboutus" onClick={() => window.scrollTo(0, 0)}>About GenGlow</NavLink>
-  <NavLink to="/requestsample" onClick={() => window.scrollTo(0, 0)}>Try a Sample</NavLink>
-  <NavLink to="/bookexam" onClick={() => window.scrollTo(0, 0)}>Book an Examination</NavLink>
-</nav>
+  return (
+    <header className="nav">
+      <div className="nav-inner">
+        {/* Logo */}
+        <a href="/home" className="logo">
+          <img src={logo} alt="GenGlow Logo" />
+        </a>
 
-      {/* Right Section */}
-      <div className="nav-right">
-      <div className="quizbtn">
-  <NavLink to="/genquiz" className="quiz-outline-btn" onClick={() => window.scrollTo(0, 0)}>
-    Genetic Quiz
-  </NavLink>
-</div>
+        {/* Navigation Links */}
+        <nav className="bar">
+          <NavLink to="/shop" onClick={() => window.scrollTo(0, 0)}>Shop</NavLink>
+          <NavLink to="/aboutus" onClick={() => window.scrollTo(0, 0)}>About GenGlow</NavLink>
+          <NavLink to="/requestsample" onClick={() => window.scrollTo(0, 0)}>Try a Sample</NavLink>
+          <NavLink to="/bookexam" onClick={() => window.scrollTo(0, 0)}>Book an Examination</NavLink>
+        </nav>
 
-
-        <div className="user-dropdown">
-          <img src={userpic} alt="User Icon" className="user-icon" />
-          <div className="dropdown-content">
-            {!isLoggedIn ? (
-              <>
-                <a href="/signin">Sign In</a>
-                <a href="/signup">Sign Up</a>
-              </>
-            ) : (
-              <>
-                <a href={getDashboardPath()}>Dashboard</a>
-                <button className="logout-btn" onClick={handleLogout}>
-                  Log Out
-                </button>
-              </>
-            )}
+        {/* Right Section */}
+        <div className="nav-right">
+          <div className="quizbtn">
+            <NavLink
+              to="/genquiz"
+              className="quiz-outline-btn"
+              onClick={() => window.scrollTo(0, 0)}
+            >
+              Genetic Quiz
+            </NavLink>
           </div>
+
+          {/* USER DROPDOWN */}
+          <div className="user-dropdown">
+            <img src={userpic} alt="User Icon" className="user-icon" />
+            <div className="dropdown-content">
+              {!isLoggedIn ? (
+                <>
+                  <a href="/signin">Sign In</a>
+                  <a href="/signup">Sign Up</a>
+                </>
+              ) : (
+                <>
+                  <a href={getDashboardPath()}>Dashboard</a>
+                  <button className="logout-btn" onClick={handleLogout}>
+                    Log Out
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* 🛒 CART (users only) */}
+          {showUserCart && (
+            <div className="cart-icon-wrapper" onClick={() => setIsOpen(true)}>
+              <img src={navcart} alt="Cart" className="cart-icon" />
+              
+            </div>
+          )}
         </div>
       </div>
-    </div>
-  </header>
-);
-
+    </header>
+  );
 };
 
 export default Navbar;

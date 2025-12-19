@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../pagesstyles/home.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { CartContext } from "../cart/CartContext";
 
 import cart from "../assets/cart.png";
-import prod1 from "../assets/products/prod1.png";
-import prod2 from "../assets/products/prod2.png";
-import prod3 from "../assets/products/prod3.png";
-import prod4 from "../assets/products/prod4.png";
-import prod6 from "../assets/products/prod6.png";
-import prod8 from "../assets/products/prod8.png";
-import prod9 from "../assets/products/prod9.jpeg";
-import prod10 from "../assets/products/prod10.png";
-import prod11 from "../assets/products/prod11.png";
-import prod14 from "../assets/products/prod14.png";
-import prod15 from "../assets/products/prod15.jpeg";
-import prod16 from "../assets/products/prod16.jpeg";
-
-
-
-const fallbackImages = [prod2,prod15,prod1,prod3,prod6,prod9,prod16,prod4,prod8,prod10,prod11,prod14];
 
 const Home = () => {
   const navigate = useNavigate();
+  const { addToCart } = useContext(CartContext);
   const [products, setProducts] = useState([]);
 
+  /* =====================
+     PRODUCT IMAGE HELPER
+  ===================== */
+  const getProductImage = (prodId) => {
+    try {
+      return require(`../assets/products/${prodId}.png`);
+    } catch (err) {
+      return require(`../assets/products/prod1.png`);
+    }
+  };
+
+  /* =====================
+     FETCH PRODUCTS
+  ===================== */
   useEffect(() => {
     axios
       .get("https://genglow-backend.vercel.app/api/products")
@@ -35,6 +35,9 @@ const Home = () => {
   return (
     <div>
       <div className="homebody">
+        {/* =====================
+            HERO
+        ===================== */}
         <div className="hometop">
           <h1>
             <span style={{ color: "green" }}>ORGANIC CARE</span>
@@ -54,6 +57,9 @@ const Home = () => {
           </div>
         </div>
 
+        {/* =====================
+            MIDDLE CTA
+        ===================== */}
         <div className="homemiddle">
           <h1>Unlock Your True Glow with GENGLOW</h1>
           <p>
@@ -72,6 +78,9 @@ const Home = () => {
           </div>
         </div>
 
+        {/* =====================
+            PRODUCTS
+        ===================== */}
         <div className="homebottom">
           <h1>
             OR BUY OUR <span style={{ color: "green" }}>PRODUCTS</span>{" "}
@@ -80,12 +89,19 @@ const Home = () => {
 
           <div className="container">
             <div className="row justify-content-center">
-              {products.map((product, index) => (
+              {products.map((product) => (
                 <div className="col-auto" key={product._id}>
                   <div className="wsk-cp-product">
-                    <div className="wsk-cp-img">
+                    {/* IMAGE → PRODUCT PAGE */}
+                    <div
+                      className="wsk-cp-img"
+                      onClick={() =>
+                        navigate(`/product/${product._id}`)
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
                       <img
-                        src={product.image || fallbackImages[index % fallbackImages.length]}
+                        src={getProductImage(product._id)}
                         alt={product.name}
                         className="img-responsive"
                       />
@@ -106,18 +122,30 @@ const Home = () => {
 
                       <div className="card-footer">
                         <div className="wcf-left">
-                          <span className="price">{product.price} EGP</span>
+                          <span className="price">
+                            {product.price} EGP
+                          </span>
                         </div>
 
-                        <a className="add-to-cart-btn" onClick={() => navigate(`/product/${product._id}`)} style={{ cursor: "pointer" }}>
-                        <img src={cart} alt="cart" />
-                        </a>
+                        {/* CART ICON → ADD TO CART */}
+                        <button
+                          className="add-to-cart-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            addToCart(product);
+                          }}
+                        >
+                          <img src={cart} alt="Add to cart" />
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
               ))}
-              {products.length === 0 && <p>Loading products...</p>}
+
+              {products.length === 0 && (
+                <p>Loading products...</p>
+              )}
             </div>
           </div>
         </div>

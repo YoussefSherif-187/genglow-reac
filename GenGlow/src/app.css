@@ -573,3 +573,24 @@
   text-decoration: none;
 }
 
+.cart-icon-wrapper {
+  position: relative;
+  cursor: pointer;
+  margin-right: 20px;
+  transition: transform 0.2s ease;
+}
+
+
+
+.cart-icon {
+  width: 26px;
+  height: 26px;
+  transition: filter 0.2s ease;
+}
+
+/* 🔹 Turn cart icon green on hover */
+.cart-icon-wrapper:hover .cart-icon {
+  filter: brightness(0) saturate(100%) invert(34%) sepia(93%) saturate(430%) hue-rotate(85deg) brightness(95%) contrast(90%);
+}
+
+

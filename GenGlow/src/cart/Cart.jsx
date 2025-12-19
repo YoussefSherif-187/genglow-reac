@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { CartContext } from "../cart/CartContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,16 +10,40 @@ function CartSidebar() {
   const { cart, isOpen, closeCart, increaseQty, decreaseQty } =
     useContext(CartContext);
 
+  /* =====================
+     PRODUCT IMAGE HELPER
+  ===================== */
+  const getProductImage = (prodId) => {
+    try {
+      return require(`../assets/products/${prodId}.png`);
+    } catch (err) {
+      return require(`../assets/products/prod1.png`);
+    }
+  };
+
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
 
   const handleCheckout = async () => {
-    try {
-      const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
 
-      // build x-www-form-urlencoded body (same style as Requestsample)
+    // 🔐 Auth + role guard
+    if (!token) {
+      closeCart();
+      navigate("/signin");
+      return;
+    }
+
+    if (role !== "user") {
+      closeCart();
+      navigate("/unauthorized");
+      return;
+    }
+
+    try {
       const formBody = new URLSearchParams();
 
       cart.forEach((item, index) => {
@@ -42,7 +66,6 @@ function CartSidebar() {
 
       closeCart();
       navigate(`/checkout/${orderId}`);
-
     } catch (error) {
       const message =
         error.response?.data?.message ||
@@ -72,16 +95,23 @@ function CartSidebar() {
 
           {cart.map((item) => (
             <div className="cart-item" key={item._id}>
-              <img src={item.image} alt={item.name} />
+              <img
+                src={getProductImage(item._id)}
+                alt={item.name}
+              />
 
               <div className="cart-info">
                 <h3>{item.name}</h3>
-                <p>$ {item.price}.00</p>
+                <p>{item.price} EGP</p>
 
                 <div className="item-qty">
-                  <button onClick={() => decreaseQty(item._id)}>-</button>
+                  <button onClick={() => decreaseQty(item._id)}>
+                    -
+                  </button>
                   <span>{item.quantity}</span>
-                  <button onClick={() => increaseQty(item._id)}>+</button>
+                  <button onClick={() => increaseQty(item._id)}>
+                    +
+                  </button>
                 </div>
               </div>
             </div>
@@ -91,7 +121,7 @@ function CartSidebar() {
         <div className="cart-footer">
           <div className="subtotal">
             <span>SUBTOTAL</span>
-            <strong>$ {subtotal}.00</strong>
+            <strong>{subtotal} EGP</strong>
           </div>
 
           <p className="cart-note">

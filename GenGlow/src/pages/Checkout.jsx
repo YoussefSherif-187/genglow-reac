@@ -12,6 +12,17 @@ function Checkout() {
   const [paying, setPaying] = useState(false);
 
   /* =====================
+     PRODUCT IMAGE HELPER
+  ===================== */
+  const getProductImage = (prodId) => {
+    try {
+      return require(`../assets/products/${prodId}.png`);
+    } catch (err) {
+      return require(`../assets/products/prod1.png`);
+    }
+  };
+
+  /* =====================
      FETCH ORDER
   ===================== */
   useEffect(() => {
@@ -96,13 +107,6 @@ function Checkout() {
               <input type="radio" checked readOnly />
               Cash on Delivery
             </label>
-
-            {/* payment image */}
-            <img
-              src="/assets/cash-on-delivery.png"
-              alt="Cash on Delivery"
-              className="payment-img"
-            />
           </div>
 
           <button
@@ -119,15 +123,20 @@ function Checkout() {
           <h3>Order Summary</h3>
 
           {order.products.map((item) => (
-            <div className="summary-item" key={item.product._id}>
+            <div
+              className="summary-item"
+              key={item.product._id}
+            >
               <img
-                src={`/assets/products/${item.product._id}.jpg`}
+                src={getProductImage(item.product._id)}
                 alt={item.product.name}
               />
+
               <div>
                 <p>{item.product.name}</p>
                 <small>Qty: {item.quantity}</small>
               </div>
+
               <strong>
                 EGP {item.product.price * item.quantity}
               </strong>
@@ -143,8 +152,6 @@ function Checkout() {
             <span>Total</span>
             <strong>EGP {subtotal}</strong>
           </div>
-
-         
         </div>
       </div>
     </div>

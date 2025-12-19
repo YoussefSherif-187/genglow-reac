@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../cart/CartContext";
 import axios from "axios";
-import productImage from "../assets/products/prod1.png";
 import "../pagesstyles/singleproduct.css";
 
 function SingleProduct() {
@@ -15,6 +14,22 @@ function SingleProduct() {
   const [newRating, setNewRating] = useState(5);
   const [comment, setComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  // 🔐 Auth + role check
+  const isLoggedIn = !!localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+  const canWriteReview = isLoggedIn && role === "user";
+
+  /* =====================
+     PRODUCT IMAGE HELPER
+  ===================== */
+  const getProductImage = (prodId) => {
+    try {
+      return require(`../assets/products/${prodId}.png`);
+    } catch (err) {
+      return require(`../assets/products/prod1.png`);
+    }
+  };
 
   /* =====================
      FETCH PRODUCT
@@ -80,7 +95,7 @@ function SingleProduct() {
         }
       );
 
-      // add new review to list instantly
+      // add new review instantly
       setReviews((prev) => [res.data.review, ...prev]);
 
       // recalc rating
@@ -94,7 +109,7 @@ function SingleProduct() {
     } catch (err) {
       alert(
         err.response?.data?.message ||
-        "Failed to submit review"
+          "Failed to submit review"
       );
     } finally {
       setSubmitting(false);
@@ -118,7 +133,10 @@ function SingleProduct() {
       <div className="single-product-wrapper">
         {/* PRODUCT */}
         <div className="product-image">
-          <img src={productImage} alt={product.name} />
+          <img
+            src={getProductImage(product._id)}
+            alt={product.name}
+          />
         </div>
 
         <div className="product-info">
@@ -148,38 +166,47 @@ function SingleProduct() {
       </div>
 
       {/* =====================
-          CREATE REVIEW
+          CREATE REVIEW (users only)
       ===================== */}
-    <div className="review-form">
-  <h3>Write a Review</h3>
+      {canWriteReview && (
+        <div className="review-form">
+          <h3>Write a Review</h3>
 
-  <form onSubmit={submitReview}>
-    <label>Rating</label>
+          <form onSubmit={submitReview}>
+            <label>Rating</label>
 
-    <div className="star-input">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <span
-          key={star}
-          className={`star ${star <= newRating ? "filled" : ""}`}
-          onClick={() => setNewRating(star)}
-        >
-          ★
-        </span>
-      ))}
-    </div>
+            <div className="star-input">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <span
+                  key={star}
+                  className={`star ${
+                    star <= newRating ? "filled" : ""
+                  }`}
+                  onClick={() => setNewRating(star)}
+                >
+                  ★
+                </span>
+              ))}
+            </div>
 
-    <label>Comment</label>
-    <textarea
-      value={comment}
-      onChange={(e) => setComment(e.target.value)}
-      placeholder="Write your review..."
-    />
+            <label>Comment</label>
+            <textarea
+              className="form-control"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Write your review..."
+            />
 
-    <button type="submit" disabled={submitting}>
-      {submitting ? "Submitting..." : "Submit Review"}
-    </button>
-  </form>
-</div>
+            <button
+              className="btn-add"
+              type="submit"
+              disabled={submitting}
+            >
+              {submitting ? "Submitting..." : "Submit Review"}
+            </button>
+          </form>
+        </div>
+      )}
 
       {/* =====================
           REVIEWS LIST
